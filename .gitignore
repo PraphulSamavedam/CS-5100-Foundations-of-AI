@@ -3,3 +3,5 @@
 scratch*.py
 *.xml
 .idea
+search/.idea/
+multiagent/.idea
