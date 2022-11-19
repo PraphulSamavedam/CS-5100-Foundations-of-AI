@@ -5,3 +5,4 @@ scratch*.py
 .idea
 search/.idea/
 multiagent/.idea
+.idea/*
