@@ -590,7 +590,22 @@ class ExactInference(InferenceModule):
         current position is known.
         """
         "*** YOUR CODE HERE ***"
-        raiseNotDefined()
+
+        new_ghost_loc_probs = DiscreteDistribution()
+        # Contains the probabilities of the new ghost position from current ghost position.
+        for curr_loc in self.allPositions:
+            new_ghost_loc_probs[curr_loc] = self.getPositionDistribution(gameState, curr_loc)
+
+        # Current beliefs are required as we update the beliefs
+        curr_beliefs = self.beliefs.copy()
+        for new_loc in self.allPositions:
+            self.beliefs[new_loc] = 0
+            for curr_loc in self.allPositions:
+                if new_loc in new_ghost_loc_probs[curr_loc].keys():
+                    self.beliefs[new_loc] += ( curr_beliefs[curr_loc] * new_ghost_loc_probs[curr_loc][new_loc])
+        # print(f"New beliefs:{self.beliefs}")
+        self.beliefs.normalize()
+        # raiseNotDefined()
         "*** END YOUR CODE HERE ***"
 
     def getBeliefDistribution(self):
