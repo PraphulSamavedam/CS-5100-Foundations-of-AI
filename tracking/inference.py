@@ -62,7 +62,25 @@ def constructBayesNet(gameState: hunters.GameState):
     variableDomainsDict = {}
 
     "*** YOUR CODE HERE ***"
-    raiseNotDefined()
+    variables.append(GHOST0)
+    variables.append(PAC)
+    variables.append(GHOST1)
+    variables.append(OBS0)
+    variables.append(OBS1)
+
+    edges.append((GHOST0, OBS0))
+    edges.append((PAC, OBS0))
+    edges.append((GHOST1, OBS1))
+    edges.append((PAC, OBS1))
+
+    variableDomainsDict[OBS0] = [x for x in range(X_RANGE + Y_RANGE + MAX_NOISE - 1)]
+    variableDomainsDict[OBS1] = [x for x in range(X_RANGE + Y_RANGE + MAX_NOISE - 1)]
+    for var in [GHOST0, GHOST1, PAC]:
+        values = list()
+        for x in range(X_RANGE):
+            for y in range(Y_RANGE):
+                values.append((x, y))
+        variableDomainsDict[var] = values
     "*** END YOUR CODE HERE ***"
 
     net = bn.constructEmptyBayesNet(variables, edges, variableDomainsDict)
@@ -602,7 +620,7 @@ class ExactInference(InferenceModule):
             self.beliefs[new_loc] = 0
             for curr_loc in self.allPositions:
                 if new_loc in new_ghost_loc_probs[curr_loc].keys():
-                    self.beliefs[new_loc] += ( curr_beliefs[curr_loc] * new_ghost_loc_probs[curr_loc][new_loc])
+                    self.beliefs[new_loc] += (curr_beliefs[curr_loc] * new_ghost_loc_probs[curr_loc][new_loc])
         # print(f"New beliefs:{self.beliefs}")
         self.beliefs.normalize()
         # raiseNotDefined()
@@ -685,3 +703,4 @@ class ParticleFilter(InferenceModule):
         "*** YOUR CODE HERE ***"
         raiseNotDefined()
         "*** END YOUR CODE HERE ***"
+
