@@ -1,7 +1,7 @@
 # Foundations of AI
 
-This repository contains projects developed for CS-5100 Foundations of Artificial Intelligence course. Each project explores fundamental AI concepts through practical implementations in the Pacman game environment. 
-**NOTE: Only the underlying algorithms are coded, not the environment setup they are forked from the UC Berkley's program**
+This repository contains projects developed for CS-5100 Foundations of Artificial Intelligence course. Each project explores fundamental AI concepts through practical implementations in the Pacman game environment.    
+**NOTE: Only the underlying algorithms are coded, the environment setup is forked from the UC Berkley's program**
 
 **Institution:** Northeastern University    
 **Focus Areas:** Search algorithms, probabilistic reasoning, reinforcement learning, multi-agent systems, game playing    
