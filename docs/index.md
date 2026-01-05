@@ -1,9 +1,10 @@
-# CS-5100 Foundations of AI
+# Foundations of AI
 
-This repository contains projects developed for CS-5100 Foundations of Artificial Intelligence course. Each project explores fundamental AI concepts through practical implementations in the Pacman game environment.
+This repository contains projects developed for CS-5100 Foundations of Artificial Intelligence course. Each project explores fundamental AI concepts through practical implementations in the Pacman game environment.    
+**NOTE: Only the underlying algorithms are coded, the environment setup is forked from the UC Berkley's program**
 
-**Institution:** Northeastern University
-**Focus Areas:** Search algorithms, probabilistic reasoning, reinforcement learning, multi-agent systems, game playing
+**Institution:** Northeastern University    
+**Focus Areas:** Search algorithms, probabilistic reasoning, reinforcement learning, multi-agent systems, game playing    
 
 ## Technologies
 
@@ -21,36 +22,36 @@ This repository contains projects developed for CS-5100 Foundations of Artificia
 ### [Search Algorithms](search-algorithms.md)
 Classic uninformed and informed search for pathfinding in maze environments.
 
-**Key Features:** DFS, BFS, UCS, A* search with custom heuristics
-**Concepts:** State space search, frontier management, admissible heuristics, optimality analysis
-**Performance:** A* expands 2-3x fewer nodes than uninformed search
+**Key Features:** DFS, BFS, UCS, A* search with custom heuristics    
+**Concepts:** State space search, frontier management, admissible heuristics, optimality analysis    
+**Performance:** A* expands 2-3x fewer nodes than uninformed search    
 
 ---
 
 ### [Probabilistic Tracking](probabilistic-tracking.md)
 Bayesian inference and particle filtering for tracking hidden ghosts with noisy sensors.
 
-**Key Features:** Exact inference, particle filtering, joint distributions, belief propagation
-**Concepts:** Bayesian Networks, Hidden Markov Models, forward algorithm, importance sampling
-**Performance:** Real-time tracking at 30+ FPS with 100-500 particles
+**Key Features:** Exact inference, particle filtering, joint distributions, belief propagation    
+**Concepts:** Bayesian Networks, Hidden Markov Models, forward algorithm, importance sampling    
+**Performance:** Real-time tracking at 30+ FPS with 100-500 particles    
 
 ---
 
 ### [Reinforcement Learning](reinforcement-learning.md)
 Value-based learning methods for discovering optimal policies through experience.
 
-**Key Features:** Value Iteration, Q-Learning, Approximate Q-Learning, epsilon-greedy exploration
-**Concepts:** Markov Decision Processes, Bellman equations, temporal difference learning, function approximation
-**Performance:** Converges to optimal policy with proper hyperparameters
+**Key Features:** Value Iteration, Q-Learning, Approximate Q-Learning, epsilon-greedy exploration    
+**Concepts:** Markov Decision Processes, Bellman equations, temporal difference learning, function approximation    
+**Performance:** Converges to optimal policy with proper hyperparameters    
 
 ---
 
 ### [Multi-Agent Systems](multi-agent-systems.md)
 Adversarial search algorithms for game playing against intelligent opponents.
 
-**Key Features:** Minimax, Alpha-Beta pruning, Expectimax, evaluation functions
-**Concepts:** Game trees, adversarial search, zero-sum games, optimization through pruning
-**Performance:** 2-10x speedup with alpha-beta pruning (typically 3-5x)
+**Key Features:** Minimax, Alpha-Beta pruning, Expectimax, evaluation functions    
+**Concepts:** Game trees, adversarial search, zero-sum games, optimization through pruning    
+**Performance:** 2-10x speedup with alpha-beta pruning (typically 3-5x)    
 
 ---
 
@@ -87,5 +88,5 @@ Each project has its own detailed documentation page (use navigation above). Gen
 
 ## Contact
 
-**Author:** Praphul Samavedam
+**Author:** Praphul Samavedam    
 **GitHub:** [@PraphulSamavedam](https://github.com/PraphulSamavedam)
