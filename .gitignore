@@ -6,3 +6,6 @@ scratch*.py
 search/.idea/
 multiagent/.idea
 .idea/*
+
+# MkDocs build output
+site/
