@@ -1,0 +1,2669 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Projects developed for Foundations of Artificial Intelligence (CS-5100)">
+      
+      
+        <meta name="author" content="Praphul Samavedam">
+      
+      
+        <link rel="canonical" href="https://PraphulSamavedam.github.io/CS-5100-Foundations-of-AI/multi-agent-systems/">
+      
+      
+        <link rel="prev" href="../reinforcement-learning/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Multi-Agent Systems - Foundations of AI</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#multi-agent-systems" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Foundations of AI" class="md-header__button md-logo" aria-label="Foundations of AI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Foundations of AI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Multi-Agent Systems
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-2.69L23.31 12 20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.82 0-3.53.5-5 1.35C8 5.08 10 8.3 10 12s-2 6.92-5 8.65C6.47 21.5 8.18 22 10 22a10 10 0 0 0 10-10A10 10 0 0 0 10 2"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/PraphulSamavedam/CS-5100-Foundations-of-AI" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CS-5100-Foundations-of-AI
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../search-algorithms/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Search Algorithms
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../probabilistic-tracking/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Probabilistic Tracking
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../reinforcement-learning/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Reinforcement Learning
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Multi-Agent Systems
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Foundations of AI" class="md-nav__button md-logo" aria-label="Foundations of AI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Foundations of AI
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/PraphulSamavedam/CS-5100-Foundations-of-AI" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CS-5100-Foundations-of-AI
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../search-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../probabilistic-tracking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probabilistic Tracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reinforcement-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reinforcement Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Agent Systems
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Agent Systems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features-and-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features and Capabilities
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features and Capabilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agent-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent Types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agent Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-reflex-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Reflex Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-minimax-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Minimax Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-alpha-beta-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Alpha-Beta Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-expectimax-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Expectimax Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Start
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Agents
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running Agents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reflex-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reflex Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimax-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimax Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alpha-beta-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alpha-Beta Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expectimax-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expectimax Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-line-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Line Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algorithm-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm Details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Algorithm Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#minimax-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimax Search
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alpha-beta-pruning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alpha-Beta Pruning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expectimax-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expectimax Search
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluation Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#design-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Principles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-design-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feature Design Tips
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Analysis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#algorithm-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm Comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#depth-vs-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Depth vs Performance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-game-playing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Game Playing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluation-function-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation Function Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Concepts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#game-tree-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Game Tree Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimax-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimax Value
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alpha-beta-pruning_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alpha-Beta Pruning
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-and-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing and Validation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing and Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automated-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automated Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agent-too-slow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent Too Slow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-makes-poor-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent Makes Poor Decisions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alpha-beta-different-from-minimax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alpha-Beta Different from Minimax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expectimax-always-loses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expectimax Always Loses
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning Objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Resources
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Additional Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gamestate-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GameState Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utility-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utility Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features-and-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features and Capabilities
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features and Capabilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agent-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent Types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agent Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-reflex-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Reflex Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-minimax-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Minimax Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-alpha-beta-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Alpha-Beta Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-expectimax-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Expectimax Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Start
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Agents
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running Agents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reflex-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reflex Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimax-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimax Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alpha-beta-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alpha-Beta Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expectimax-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expectimax Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-line-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Line Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algorithm-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm Details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Algorithm Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#minimax-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimax Search
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alpha-beta-pruning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alpha-Beta Pruning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expectimax-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expectimax Search
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluation Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#design-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Principles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-design-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feature Design Tips
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Analysis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#algorithm-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm Comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#depth-vs-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Depth vs Performance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-game-playing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Game Playing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluation-function-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation Function Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Concepts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#game-tree-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Game Tree Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimax-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimax Value
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alpha-beta-pruning_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alpha-Beta Pruning
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-and-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing and Validation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing and Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automated-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automated Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agent-too-slow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent Too Slow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-makes-poor-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent Makes Poor Decisions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alpha-beta-different-from-minimax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alpha-Beta Different from Minimax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expectimax-always-loses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expectimax Always Loses
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning Objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Resources
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Additional Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gamestate-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GameState Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utility-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utility Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="multi-agent-systems">Multi-Agent Systems<a class="headerlink" href="#multi-agent-systems" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The Multi-Agent Systems project implements adversarial search algorithms for game playing where Pacman must make optimal decisions against intelligent ghost opponents. Built on game tree search principles, the system explores various decision-making strategies from reactive reflex agents to sophisticated minimax search with alpha-beta optimization and expectimax for probabilistic opponents.</p>
+<p>The implementation demonstrates how agents can reason about adversaries in competitive scenarios, achieving <strong>optimal play</strong> against perfect opponents through minimax while maintaining <strong>real-time performance</strong> (30ms per move) using alpha-beta pruning and carefully designed evaluation functions.</p>
+<hr />
+<h2 id="system-architecture">System Architecture<a class="headerlink" href="#system-architecture" title="Permanent link">&para;</a></h2>
+<p>The multi-agent system follows a game tree search architecture with alternating agent layers:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────────────────────┐
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│                    MULTI-AGENT PACMAN SYSTEM                                │
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│                         System Workflow Diagram                             │
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>└─────────────────────────────────────────────────────────────────────────────┘
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                    ┌──────────────────────────────────┐
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                    │     GAME ENVIRONMENT             │
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>                    │  - Pacman (Player Agent)         │
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>                    │  - Ghosts (Adversarial Agents)   │
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>                    │  - Food &amp; Capsules               │
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>                    │  - Maze Layout                   │
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>                    └──────────────┬───────────────────┘
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>                                   │
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>                    ┌──────────────▼───────────────┐
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>                    │     AGENT TYPES              │
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>                    └──────────────┬───────────────┘
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>                                   │
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        ┌──────────────────────────┼────────────────────────────┐
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>        │                          │                            │
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        ▼                          ▼                            ▼
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>┌────────────────┐      ┌────────────────┐        ┌────────────────┐
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>│ REFLEX AGENT   │      │ MINIMAX AGENT  │        │ EXPECTIMAX     │
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>│                │      │                │        │ AGENT          │
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>│ - Immediate    │      │ - Perfect      │        │                │
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>│   evaluation   │      │   adversary    │        │ - Probabilistic│
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>│ - State-action │      │ - Min-Max      │        │   adversary    │
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>│   pairs        │      │   search       │        │ - Expected     │
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>│ - No lookahead │      │ - Optimal play │        │   values       │
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>└────────┬───────┘      └────────┬───────┘        └────────┬───────┘
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>         │                       │                         │
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>         └───────────────────────┼─────────────────────────┘
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>                                 │
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>                    ┌────────────▼────────────┐
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>                    │   ALPHA-BETA PRUNING    │
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>                    │   - Optimization for    │
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>                    │     Minimax search      │
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>                    │   - Prunes branches     │
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>                    │   - Same result as      │
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>                    │     Minimax but faster  │
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>                    └────────────┬────────────┘
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>                                 │
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>                    ┌────────────▼────────────┐
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>                    │  EVALUATION FUNCTION    │
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>                    │  - Score game states    │
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>                    │  - Heuristic features:  │
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>                    │    * Distance to food   │
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>                    │    * Ghost proximity    │
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>                    │    * Scared ghosts      │
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>                    │    * Food remaining     │
+<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>                    │    * Game score         │
+<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>                    └────────────┬────────────┘
+<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>                                 │
+<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a>                    ┌────────────▼────────────┐
+<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a>                    │     GAME OUTPUT         │
+<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>                    │  - Action selection     │
+<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a>                    │  - Visual display       │
+<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a>                    │  - Score tracking       │
+<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a>                    └─────────────────────────┘
+<a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a>
+<a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a>Key Algorithms:
+<a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a>├─ Reflex Agent: Immediate state evaluation
+<a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a>├─ Minimax: Optimal adversarial search, O(b^d)
+<a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a>├─ Alpha-Beta: Efficient minimax, O(b^(d/2)) best case
+<a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a>└─ Expectimax: Probabilistic opponent modeling
+</code></pre></div>
+<hr />
+<h2 id="features-and-capabilities">Features and Capabilities<a class="headerlink" href="#features-and-capabilities" title="Permanent link">&para;</a></h2>
+<h3 id="agent-types">Agent Types<a class="headerlink" href="#agent-types" title="Permanent link">&para;</a></h3>
+<h4 id="1-reflex-agent">1. Reflex Agent<a class="headerlink" href="#1-reflex-agent" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Strategy:</strong> Evaluate immediate successor states</li>
+<li><strong>Lookahead:</strong> None (one-step evaluation)</li>
+<li><strong>Computation:</strong> O(|A|) for |A| actions</li>
+<li><strong>Response Time:</strong> &lt;1ms</li>
+<li><strong>Best For:</strong> Fast decisions, simple scenarios</li>
+</ul>
+<h4 id="2-minimax-agent">2. Minimax Agent<a class="headerlink" href="#2-minimax-agent" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Strategy:</strong> Adversarial search assuming optimal opponents</li>
+<li><strong>Lookahead:</strong> Configurable depth (typically 2-4 plies)</li>
+<li><strong>Computation:</strong> O(b^d) where b≈4-5 branches, d=depth</li>
+<li><strong>Response Time:</strong> 10-1000ms depending on depth</li>
+<li><strong>Best For:</strong> Perfect opponents, optimal guaranteed solutions</li>
+</ul>
+<h4 id="3-alpha-beta-agent">3. Alpha-Beta Agent<a class="headerlink" href="#3-alpha-beta-agent" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Strategy:</strong> Optimized minimax with branch pruning</li>
+<li><strong>Lookahead:</strong> Same as minimax, but deeper possible</li>
+<li><strong>Computation:</strong> O(b^(d/2)) to O(b^d) depending on ordering</li>
+<li><strong>Response Time:</strong> 2-10x faster than minimax</li>
+<li><strong>Best For:</strong> When minimax needed but faster execution required</li>
+</ul>
+<h4 id="4-expectimax-agent">4. Expectimax Agent<a class="headerlink" href="#4-expectimax-agent" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Strategy:</strong> Models random/suboptimal opponents</li>
+<li><strong>Lookahead:</strong> Configurable depth</li>
+<li><strong>Computation:</strong> O(b^d) (no pruning possible)</li>
+<li><strong>Response Time:</strong> Similar to minimax</li>
+<li><strong>Best For:</strong> Random or probabilistic opponents</li>
+</ul>
+<hr />
+<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h3>
+<p>Navigate to project directory:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span><span class="w"> </span>3_multiagent
+</code></pre></div></p>
+<h3 id="running-agents">Running Agents<a class="headerlink" href="#running-agents" title="Permanent link">&para;</a></h3>
+<h4 id="reflex-agent">Reflex Agent<a class="headerlink" href="#reflex-agent" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Test on classic layout</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>ReflexAgent<span class="w"> </span>-l<span class="w"> </span>testClassic
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Multiple games for statistics</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>ReflexAgent<span class="w"> </span>-l<span class="w"> </span>testClassic<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span>
+</code></pre></div>
+<h4 id="minimax-agent">Minimax Agent<a class="headerlink" href="#minimax-agent" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Run on minimax-designed layout</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>MinimaxAgent<span class="w"> </span>-l<span class="w"> </span>minimaxClassic<span class="w"> </span>-a<span class="w"> </span><span class="nv">depth</span><span class="o">=</span><span class="m">4</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Medium classic with depth 3</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>MinimaxAgent<span class="w"> </span>-l<span class="w"> </span>mediumClassic<span class="w"> </span>-a<span class="w"> </span><span class="nv">depth</span><span class="o">=</span><span class="m">3</span>
+</code></pre></div>
+<h4 id="alpha-beta-agent">Alpha-Beta Agent<a class="headerlink" href="#alpha-beta-agent" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Optimized search</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>AlphaBetaAgent<span class="w"> </span>-l<span class="w"> </span>smallClassic<span class="w"> </span>-a<span class="w"> </span><span class="nv">depth</span><span class="o">=</span><span class="m">3</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Fast mode (no graphics)</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>AlphaBetaAgent<span class="w"> </span>-l<span class="w"> </span>mediumClassic<span class="w"> </span>-a<span class="w"> </span><span class="nv">depth</span><span class="o">=</span><span class="m">4</span><span class="w"> </span>-q<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span>
+</code></pre></div>
+<h4 id="expectimax-agent">Expectimax Agent<a class="headerlink" href="#expectimax-agent" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Model random ghosts</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>ExpectimaxAgent<span class="w"> </span>-l<span class="w"> </span>minimaxClassic<span class="w"> </span>-a<span class="w"> </span><span class="nv">depth</span><span class="o">=</span><span class="m">3</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Compare with minimax</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>MinimaxAgent<span class="w"> </span>-l<span class="w"> </span>minimaxClassic<span class="w"> </span>-a<span class="w"> </span><span class="nv">depth</span><span class="o">=</span><span class="m">3</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>ExpectimaxAgent<span class="w"> </span>-l<span class="w"> </span>minimaxClassic<span class="w"> </span>-a<span class="w"> </span><span class="nv">depth</span><span class="o">=</span><span class="m">3</span>
+</code></pre></div>
+<h3 id="command-line-options">Command Line Options<a class="headerlink" href="#command-line-options" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-p</code></td>
+<td>Agent type</td>
+<td><code>ReflexAgent</code>, <code>MinimaxAgent</code>, <code>AlphaBetaAgent</code>, <code>ExpectimaxAgent</code></td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td>Layout/maze</td>
+<td><code>testClassic</code>, <code>minimaxClassic</code>, <code>smallClassic</code>, <code>mediumClassic</code></td>
+</tr>
+<tr>
+<td><code>-a</code></td>
+<td>Agent args</td>
+<td><code>depth=N</code>, <code>evalFn=better</code></td>
+</tr>
+<tr>
+<td><code>-q</code></td>
+<td>Quiet mode</td>
+<td>No graphics, faster</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td>Games to play</td>
+<td><code>1</code>, <code>10</code>, <code>100</code></td>
+</tr>
+<tr>
+<td><code>--frameTime</code></td>
+<td>Animation</td>
+<td><code>0</code> (fast), <code>0.1</code> (slow)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="algorithm-details">Algorithm Details<a class="headerlink" href="#algorithm-details" title="Permanent link">&para;</a></h2>
+<h3 id="minimax-search">Minimax Search<a class="headerlink" href="#minimax-search" title="Permanent link">&para;</a></h3>
+<p><strong>Core Idea:</strong> Assume all agents play optimally</p>
+<p><strong>Pseudocode:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>function MINIMAX(state, depth, agentIndex):
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    if depth = 0 or state is terminal:
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>        return EVALUATE(state)
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    if agentIndex = 0:  # Pacman (MAX)
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>        value = -∞
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>        for each action in legal_actions:
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>            successor = generate_successor(state, action)
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>            value = max(value, MINIMAX(successor, depth, 1))
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>        return value
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    else:  # Ghost (MIN)
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>        value = +∞
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>        for each action in legal_actions:
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>            successor = generate_successor(state, action)
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>            nextAgent = (agentIndex + 1) % numAgents
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>            nextDepth = depth - 1 if nextAgent = 0 else depth
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>            value = min(value, MINIMAX(successor, nextDepth, nextAgent))
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>        return value
+</code></pre></div></p>
+<p><strong>Implementation:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">minimax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gameState</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">agentIndex</span><span class="p">):</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="c1"># Terminal conditions</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="k">if</span> <span class="n">gameState</span><span class="o">.</span><span class="n">isWin</span><span class="p">()</span> <span class="ow">or</span> <span class="n">gameState</span><span class="o">.</span><span class="n">isLose</span><span class="p">()</span> <span class="ow">or</span> <span class="n">depth</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluationFunction</span><span class="p">(</span><span class="n">gameState</span><span class="p">)</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="n">numAgents</span> <span class="o">=</span> <span class="n">gameState</span><span class="o">.</span><span class="n">getNumAgents</span><span class="p">()</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="n">legalActions</span> <span class="o">=</span> <span class="n">gameState</span><span class="o">.</span><span class="n">getLegalActions</span><span class="p">(</span><span class="n">agentIndex</span><span class="p">)</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    <span class="c1"># Pacman&#39;s turn (MAX)</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    <span class="k">if</span> <span class="n">agentIndex</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">minimax</span><span class="p">(</span><span class="n">gameState</span><span class="o">.</span><span class="n">generateSuccessor</span><span class="p">(</span><span class="n">agentIndex</span><span class="p">,</span> <span class="n">action</span><span class="p">),</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>                               <span class="n">depth</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>                  <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">legalActions</span><span class="p">)</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>    <span class="c1"># Ghost&#39;s turn (MIN)</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>        <span class="n">nextAgent</span> <span class="o">=</span> <span class="p">(</span><span class="n">agentIndex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">numAgents</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>        <span class="n">nextDepth</span> <span class="o">=</span> <span class="n">depth</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">nextAgent</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">depth</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>        <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">minimax</span><span class="p">(</span><span class="n">gameState</span><span class="o">.</span><span class="n">generateSuccessor</span><span class="p">(</span><span class="n">agentIndex</span><span class="p">,</span> <span class="n">action</span><span class="p">),</span>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>                               <span class="n">nextDepth</span><span class="p">,</span> <span class="n">nextAgent</span><span class="p">)</span>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>                  <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">legalActions</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Properties:</strong>
+- Optimal against perfect opponents
+- Explores full game tree to depth d
+- Exponential time complexity O(b^d)
+- Guarantees best worst-case outcome</p>
+<hr />
+<h3 id="alpha-beta-pruning">Alpha-Beta Pruning<a class="headerlink" href="#alpha-beta-pruning" title="Permanent link">&para;</a></h3>
+<p><strong>Core Idea:</strong> Prune branches that won't affect decision</p>
+<p><strong>Parameters:</strong>
+- <strong>α (alpha):</strong> Best value MAX can guarantee (lower bound)
+- <strong>β (beta):</strong> Best value MIN can guarantee (upper bound)</p>
+<p><strong>Pruning Rule:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>If α ≥ β → prune remaining branches
+</code></pre></div></p>
+<p><strong>Pseudocode:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>function ALPHA-BETA(state, depth, agentIndex, α, β):
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    if depth = 0 or terminal:
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>        return EVALUATE(state)
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    if agentIndex = 0:  # MAX
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        value = -∞
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        for each action:
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>            value = max(value, ALPHA-BETA(successor, depth, 1, α, β))
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>            α = max(α, value)
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>            if α ≥ β:
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>                break  # β cutoff
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>        return value
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>    else:  # MIN
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>        value = +∞
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>        for each action:
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>            value = min(value, ALPHA-BETA(successor, nextDepth, nextAgent, α, β))
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>            β = min(β, value)
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>            if α ≥ β:
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>                break  # α cutoff
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>        return value
+</code></pre></div></p>
+<p><strong>Implementation:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">alphaBeta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gameState</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">agentIndex</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">):</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="k">if</span> <span class="n">gameState</span><span class="o">.</span><span class="n">isWin</span><span class="p">()</span> <span class="ow">or</span> <span class="n">gameState</span><span class="o">.</span><span class="n">isLose</span><span class="p">()</span> <span class="ow">or</span> <span class="n">depth</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluationFunction</span><span class="p">(</span><span class="n">gameState</span><span class="p">)</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="n">legalActions</span> <span class="o">=</span> <span class="n">gameState</span><span class="o">.</span><span class="n">getLegalActions</span><span class="p">(</span><span class="n">agentIndex</span><span class="p">)</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>    <span class="c1"># MAX node</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>    <span class="k">if</span> <span class="n">agentIndex</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>        <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;-inf&#39;</span><span class="p">)</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>        <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">legalActions</span><span class="p">:</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>            <span class="n">successor</span> <span class="o">=</span> <span class="n">gameState</span><span class="o">.</span><span class="n">generateSuccessor</span><span class="p">(</span><span class="n">agentIndex</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>            <span class="n">value</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">alphaBeta</span><span class="p">(</span><span class="n">successor</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">))</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>            <span class="c1"># Pruning</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>            <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="n">beta</span><span class="p">:</span>
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>                <span class="k">return</span> <span class="n">value</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>            <span class="n">alpha</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>        <span class="k">return</span> <span class="n">value</span>
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>    <span class="c1"># MIN node</span>
+<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>        <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+<a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>        <span class="n">nextAgent</span> <span class="o">=</span> <span class="p">(</span><span class="n">agentIndex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">gameState</span><span class="o">.</span><span class="n">getNumAgents</span><span class="p">()</span>
+<a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>        <span class="n">nextDepth</span> <span class="o">=</span> <span class="n">depth</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">nextAgent</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">depth</span>
+<a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>
+<a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a>        <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">legalActions</span><span class="p">:</span>
+<a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a>            <span class="n">successor</span> <span class="o">=</span> <span class="n">gameState</span><span class="o">.</span><span class="n">generateSuccessor</span><span class="p">(</span><span class="n">agentIndex</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+<a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a>            <span class="n">value</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">alphaBeta</span><span class="p">(</span><span class="n">successor</span><span class="p">,</span> <span class="n">nextDepth</span><span class="p">,</span> <span class="n">nextAgent</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">))</span>
+<a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a>
+<a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a>            <span class="c1"># Pruning</span>
+<a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a>            <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="n">alpha</span><span class="p">:</span>
+<a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a>                <span class="k">return</span> <span class="n">value</span>
+<a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a>            <span class="n">beta</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<a id="__codelineno-10-34" name="__codelineno-10-34" href="#__codelineno-10-34"></a>        <span class="k">return</span> <span class="n">value</span>
+</code></pre></div></p>
+<p><strong>Efficiency:</strong>
+- Best case: O(b^(d/2)) - perfect move ordering
+- Average case: O(b^(3d/4))
+- Typical speedup: 3-5x over minimax
+- Enables search 1-2 plies deeper</p>
+<hr />
+<h3 id="expectimax-search">Expectimax Search<a class="headerlink" href="#expectimax-search" title="Permanent link">&para;</a></h3>
+<p><strong>Core Idea:</strong> Model probabilistic opponents with expected values</p>
+<p><strong>Pseudocode:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>function EXPECTIMAX(state, depth, agentIndex):
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    if depth = 0 or terminal:
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>        return EVALUATE(state)
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    if agentIndex = 0:  # MAX (Pacman)
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>        return max_{action} EXPECTIMAX(successor, depth, 1)
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>    else:  # CHANCE (Ghost)
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>        actions = legal_actions
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>        probability = 1.0 / len(actions)
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>        total = 0
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>        for each action:
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>            total += probability × EXPECTIMAX(successor, nextDepth, nextAgent)
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>        return total
+</code></pre></div></p>
+<p><strong>Implementation:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">expectimax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gameState</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">agentIndex</span><span class="p">):</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="k">if</span> <span class="n">gameState</span><span class="o">.</span><span class="n">isWin</span><span class="p">()</span> <span class="ow">or</span> <span class="n">gameState</span><span class="o">.</span><span class="n">isLose</span><span class="p">()</span> <span class="ow">or</span> <span class="n">depth</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluationFunction</span><span class="p">(</span><span class="n">gameState</span><span class="p">)</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    <span class="n">legalActions</span> <span class="o">=</span> <span class="n">gameState</span><span class="o">.</span><span class="n">getLegalActions</span><span class="p">(</span><span class="n">agentIndex</span><span class="p">)</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>    <span class="c1"># MAX node (Pacman)</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>    <span class="k">if</span> <span class="n">agentIndex</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expectimax</span><span class="p">(</span><span class="n">gameState</span><span class="o">.</span><span class="n">generateSuccessor</span><span class="p">(</span><span class="n">agentIndex</span><span class="p">,</span> <span class="n">action</span><span class="p">),</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>                                  <span class="n">depth</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>                  <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">legalActions</span><span class="p">)</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>    <span class="c1"># CHANCE node (Ghost)</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>        <span class="n">probability</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">legalActions</span><span class="p">)</span>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>        <span class="n">nextAgent</span> <span class="o">=</span> <span class="p">(</span><span class="n">agentIndex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">gameState</span><span class="o">.</span><span class="n">getNumAgents</span><span class="p">()</span>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>        <span class="n">nextDepth</span> <span class="o">=</span> <span class="n">depth</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">nextAgent</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">depth</span>
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">probability</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">expectimax</span><span class="p">(</span>
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>                       <span class="n">gameState</span><span class="o">.</span><span class="n">generateSuccessor</span><span class="p">(</span><span class="n">agentIndex</span><span class="p">,</span> <span class="n">action</span><span class="p">),</span>
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>                       <span class="n">nextDepth</span><span class="p">,</span> <span class="n">nextAgent</span><span class="p">)</span>
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>                  <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">legalActions</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Properties:</strong>
+- More realistic than minimax (ghosts not optimal)
+- Uses expected values instead of worst case
+- Cannot be pruned (must explore all branches)
+- Better for random opponents</p>
+<hr />
+<h2 id="evaluation-functions">Evaluation Functions<a class="headerlink" href="#evaluation-functions" title="Permanent link">&para;</a></h2>
+<h3 id="design-principles">Design Principles<a class="headerlink" href="#design-principles" title="Permanent link">&para;</a></h3>
+<p><strong>Goal:</strong> Score game states where higher = better for Pacman</p>
+<p><strong>Components:</strong>
+1. <strong>Game score:</strong> Current score as baseline
+2. <strong>Food distance:</strong> Closer to food = higher score
+3. <strong>Ghost distance:</strong> Farther from ghosts = higher score (unless scared)
+4. <strong>Scared ghosts:</strong> Closer to scared ghosts = higher score
+5. <strong>Food remaining:</strong> Fewer food = higher score</p>
+<h3 id="example-implementation">Example Implementation<a class="headerlink" href="#example-implementation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">betterEvaluationFunction</span><span class="p">(</span><span class="n">currentGameState</span><span class="p">):</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="sd">    Advanced evaluation function</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    <span class="c1"># Terminal states</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    <span class="k">if</span> <span class="n">currentGameState</span><span class="o">.</span><span class="n">isWin</span><span class="p">():</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>    <span class="k">if</span> <span class="n">currentGameState</span><span class="o">.</span><span class="n">isLose</span><span class="p">():</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;-inf&#39;</span><span class="p">)</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>    <span class="c1"># Extract state information</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>    <span class="n">pos</span> <span class="o">=</span> <span class="n">currentGameState</span><span class="o">.</span><span class="n">getPacmanPosition</span><span class="p">()</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>    <span class="n">food</span> <span class="o">=</span> <span class="n">currentGameState</span><span class="o">.</span><span class="n">getFood</span><span class="p">()</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>    <span class="n">ghosts</span> <span class="o">=</span> <span class="n">currentGameState</span><span class="o">.</span><span class="n">getGhostStates</span><span class="p">()</span>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>    <span class="n">capsules</span> <span class="o">=</span> <span class="n">currentGameState</span><span class="o">.</span><span class="n">getCapsules</span><span class="p">()</span>
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>    <span class="n">score</span> <span class="o">=</span> <span class="n">currentGameState</span><span class="o">.</span><span class="n">getScore</span><span class="p">()</span>
+<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>
+<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>    <span class="c1"># Feature 1: Food distance</span>
+<a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>    <span class="n">foodList</span> <span class="o">=</span> <span class="n">food</span><span class="o">.</span><span class="n">asList</span><span class="p">()</span>
+<a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>    <span class="n">foodScore</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a>    <span class="k">if</span> <span class="n">foodList</span><span class="p">:</span>
+<a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a>        <span class="n">minFoodDist</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="n">manhattanDistance</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">foodList</span><span class="p">])</span>
+<a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>        <span class="n">foodScore</span> <span class="o">=</span> <span class="mf">10.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">minFoodDist</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a>
+<a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a>    <span class="c1"># Feature 2: Ghost distance</span>
+<a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a>    <span class="n">ghostScore</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a>    <span class="k">for</span> <span class="n">ghost</span> <span class="ow">in</span> <span class="n">ghosts</span><span class="p">:</span>
+<a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a>        <span class="n">ghostPos</span> <span class="o">=</span> <span class="n">ghost</span><span class="o">.</span><span class="n">getPosition</span><span class="p">()</span>
+<a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a>        <span class="n">ghostDist</span> <span class="o">=</span> <span class="n">manhattanDistance</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">ghostPos</span><span class="p">)</span>
+<a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a>
+<a id="__codelineno-13-31" name="__codelineno-13-31" href="#__codelineno-13-31"></a>        <span class="k">if</span> <span class="n">ghost</span><span class="o">.</span><span class="n">scaredTimer</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-13-32" name="__codelineno-13-32" href="#__codelineno-13-32"></a>            <span class="c1"># Chase scared ghosts</span>
+<a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a>            <span class="n">ghostScore</span> <span class="o">+=</span> <span class="mf">200.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">ghostDist</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-13-34" name="__codelineno-13-34" href="#__codelineno-13-34"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-13-35" name="__codelineno-13-35" href="#__codelineno-13-35"></a>            <span class="c1"># Avoid active ghosts</span>
+<a id="__codelineno-13-36" name="__codelineno-13-36" href="#__codelineno-13-36"></a>            <span class="k">if</span> <span class="n">ghostDist</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+<a id="__codelineno-13-37" name="__codelineno-13-37" href="#__codelineno-13-37"></a>                <span class="n">ghostScore</span> <span class="o">-=</span> <span class="mi">1000</span>
+<a id="__codelineno-13-38" name="__codelineno-13-38" href="#__codelineno-13-38"></a>            <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-13-39" name="__codelineno-13-39" href="#__codelineno-13-39"></a>                <span class="n">ghostScore</span> <span class="o">+=</span> <span class="n">ghostDist</span> <span class="o">*</span> <span class="mi">2</span>
+<a id="__codelineno-13-40" name="__codelineno-13-40" href="#__codelineno-13-40"></a>
+<a id="__codelineno-13-41" name="__codelineno-13-41" href="#__codelineno-13-41"></a>    <span class="c1"># Feature 3: Capsules</span>
+<a id="__codelineno-13-42" name="__codelineno-13-42" href="#__codelineno-13-42"></a>    <span class="n">capsuleScore</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-13-43" name="__codelineno-13-43" href="#__codelineno-13-43"></a>    <span class="k">if</span> <span class="n">capsules</span><span class="p">:</span>
+<a id="__codelineno-13-44" name="__codelineno-13-44" href="#__codelineno-13-44"></a>        <span class="n">minCapsuleDist</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="n">manhattanDistance</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">capsules</span><span class="p">])</span>
+<a id="__codelineno-13-45" name="__codelineno-13-45" href="#__codelineno-13-45"></a>        <span class="n">capsuleScore</span> <span class="o">=</span> <span class="mf">50.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">minCapsuleDist</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-13-46" name="__codelineno-13-46" href="#__codelineno-13-46"></a>
+<a id="__codelineno-13-47" name="__codelineno-13-47" href="#__codelineno-13-47"></a>    <span class="c1"># Feature 4: Food remaining (penalty)</span>
+<a id="__codelineno-13-48" name="__codelineno-13-48" href="#__codelineno-13-48"></a>    <span class="n">foodRemainingScore</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">foodList</span><span class="p">)</span>
+<a id="__codelineno-13-49" name="__codelineno-13-49" href="#__codelineno-13-49"></a>
+<a id="__codelineno-13-50" name="__codelineno-13-50" href="#__codelineno-13-50"></a>    <span class="c1"># Combine features with weights</span>
+<a id="__codelineno-13-51" name="__codelineno-13-51" href="#__codelineno-13-51"></a>    <span class="n">totalScore</span> <span class="o">=</span> <span class="p">(</span><span class="n">score</span> <span class="o">+</span>
+<a id="__codelineno-13-52" name="__codelineno-13-52" href="#__codelineno-13-52"></a>                  <span class="n">foodScore</span> <span class="o">+</span>
+<a id="__codelineno-13-53" name="__codelineno-13-53" href="#__codelineno-13-53"></a>                  <span class="n">ghostScore</span> <span class="o">+</span>
+<a id="__codelineno-13-54" name="__codelineno-13-54" href="#__codelineno-13-54"></a>                  <span class="n">capsuleScore</span> <span class="o">+</span>
+<a id="__codelineno-13-55" name="__codelineno-13-55" href="#__codelineno-13-55"></a>                  <span class="n">foodRemainingScore</span><span class="p">)</span>
+<a id="__codelineno-13-56" name="__codelineno-13-56" href="#__codelineno-13-56"></a>
+<a id="__codelineno-13-57" name="__codelineno-13-57" href="#__codelineno-13-57"></a>    <span class="k">return</span> <span class="n">totalScore</span>
+</code></pre></div>
+<h3 id="feature-design-tips">Feature Design Tips<a class="headerlink" href="#feature-design-tips" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Use reciprocal for attraction:</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">score</span> <span class="o">+=</span> <span class="n">weight</span> <span class="o">/</span> <span class="p">(</span><span class="n">distance</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Avoid division by zero</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Use direct distance for repulsion:</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">score</span> <span class="o">+=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">distance</span>  <span class="c1"># or -weight / distance</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Scale features appropriately:</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Normalize by maze size</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="n">normalizedDist</span> <span class="o">=</span> <span class="n">distance</span> <span class="o">/</span> <span class="p">(</span><span class="n">width</span> <span class="o">+</span> <span class="n">height</span><span class="p">)</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Handle edge cases:</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Empty food list</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="k">if</span> <span class="ow">not</span> <span class="n">foodList</span><span class="p">:</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>    <span class="k">return</span> <span class="n">score</span>  <span class="c1"># Don&#39;t crash</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="c1"># Terminal states</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="k">if</span> <span class="n">gameState</span><span class="o">.</span><span class="n">isWin</span><span class="p">():</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+</code></pre></div></p>
+</li>
+</ol>
+<hr />
+<h2 id="performance-analysis">Performance Analysis<a class="headerlink" href="#performance-analysis" title="Permanent link">&para;</a></h2>
+<h3 id="algorithm-comparison">Algorithm Comparison<a class="headerlink" href="#algorithm-comparison" title="Permanent link">&para;</a></h3>
+<p><strong>Small Classic Layout (depth=3):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Avg Score</th>
+<th>Win Rate</th>
+<th>Time/Move</th>
+<th>Nodes Expanded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reflex</td>
+<td>1200</td>
+<td>85%</td>
+<td>&lt;1ms</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>Minimax</td>
+<td>1400</td>
+<td>95%</td>
+<td>150ms</td>
+<td>~500</td>
+</tr>
+<tr>
+<td>Alpha-Beta</td>
+<td>1400</td>
+<td>95%</td>
+<td>50ms</td>
+<td>~180</td>
+</tr>
+<tr>
+<td>Expectimax</td>
+<td>1350</td>
+<td>90%</td>
+<td>200ms</td>
+<td>~500</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Medium Classic Layout (depth=3):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Avg Score</th>
+<th>Win Rate</th>
+<th>Time/Move</th>
+<th>Nodes Expanded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Minimax</td>
+<td>1800</td>
+<td>85%</td>
+<td>800ms</td>
+<td>~2500</td>
+</tr>
+<tr>
+<td>Alpha-Beta</td>
+<td>1800</td>
+<td>85%</td>
+<td>250ms</td>
+<td>~900</td>
+</tr>
+<tr>
+<td>Expectimax</td>
+<td>1750</td>
+<td>80%</td>
+<td>900ms</td>
+<td>~2500</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key Observations:</strong>
+- Alpha-Beta achieves same decisions as Minimax with 3-5x speedup
+- Expectimax better models random ghosts but can't be pruned
+- Deeper search improves decisions but increases computation exponentially</p>
+<h3 id="depth-vs-performance">Depth vs Performance<a class="headerlink" href="#depth-vs-performance" title="Permanent link">&para;</a></h3>
+<p><strong>Minimax Agent on mediumClassic:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Depth</th>
+<th>Avg Score</th>
+<th>Win Rate</th>
+<th>Time/Move</th>
+<th>Nodes Expanded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>1600</td>
+<td>75%</td>
+<td>80ms</td>
+<td>~150</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1800</td>
+<td>85%</td>
+<td>800ms</td>
+<td>~2500</td>
+</tr>
+<tr>
+<td>4</td>
+<td>1900</td>
+<td>90%</td>
+<td>8s</td>
+<td>~40000</td>
+</tr>
+<tr>
+<td>5</td>
+<td>1950</td>
+<td>95%</td>
+<td>120s</td>
+<td>~600000</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Practical Depth Limits:</strong>
+- Depth 2-3: Playable in real-time
+- Depth 4: Slow but acceptable
+- Depth 5+: Impractical without optimizations</p>
+<hr />
+<h2 id="usage-examples">Usage Examples<a class="headerlink" href="#usage-examples" title="Permanent link">&para;</a></h2>
+<h3 id="basic-game-playing">Basic Game Playing<a class="headerlink" href="#basic-game-playing" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Reflex agent (fast, reactive)</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>ReflexAgent<span class="w"> </span>-l<span class="w"> </span>testClassic
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="c1"># Minimax (optimal but slow)</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>MinimaxAgent<span class="w"> </span>-l<span class="w"> </span>minimaxClassic<span class="w"> </span>-a<span class="w"> </span><span class="nv">depth</span><span class="o">=</span><span class="m">4</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="c1"># Alpha-beta (optimal and fast)</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>AlphaBetaAgent<span class="w"> </span>-l<span class="w"> </span>smallClassic<span class="w"> </span>-a<span class="w"> </span><span class="nv">depth</span><span class="o">=</span><span class="m">3</span>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="c1"># Expectimax (probabilistic)</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>ExpectimaxAgent<span class="w"> </span>-l<span class="w"> </span>minimaxClassic<span class="w"> </span>-a<span class="w"> </span><span class="nv">depth</span><span class="o">=</span><span class="m">3</span>
+</code></pre></div>
+<h3 id="performance-testing">Performance Testing<a class="headerlink" href="#performance-testing" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Maximum speed comparison</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>MinimaxAgent<span class="w"> </span>-l<span class="w"> </span>smallClassic<span class="w"> </span>-a<span class="w"> </span><span class="nv">depth</span><span class="o">=</span><span class="m">3</span><span class="w"> </span>-q<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>AlphaBetaAgent<span class="w"> </span>-l<span class="w"> </span>smallClassic<span class="w"> </span>-a<span class="w"> </span><span class="nv">depth</span><span class="o">=</span><span class="m">3</span><span class="w"> </span>-q<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="c1"># Depth comparison</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="k">for</span><span class="w"> </span>d<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Testing depth </span><span class="nv">$d</span><span class="s2">&quot;</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="w">    </span>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>AlphaBetaAgent<span class="w"> </span>-l<span class="w"> </span>smallClassic<span class="w"> </span>-a<span class="w"> </span><span class="nv">depth</span><span class="o">=</span><span class="nv">$d</span><span class="w"> </span>-q<span class="w"> </span>-n<span class="w"> </span><span class="m">5</span>
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="k">done</span>
+</code></pre></div>
+<h3 id="evaluation-function-testing">Evaluation Function Testing<a class="headerlink" href="#evaluation-function-testing" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Test custom evaluation</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>AlphaBetaAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">depth</span><span class="o">=</span><span class="m">2</span>,evalFn<span class="o">=</span>better<span class="w"> </span>-l<span class="w"> </span>smallClassic
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="c1"># Compare default vs custom</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>AlphaBetaAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">depth</span><span class="o">=</span><span class="m">2</span><span class="w"> </span>-l<span class="w"> </span>mediumClassic<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span><span class="w"> </span>-q
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>AlphaBetaAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">depth</span><span class="o">=</span><span class="m">2</span>,evalFn<span class="o">=</span>better<span class="w"> </span>-l<span class="w"> </span>mediumClassic<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span><span class="w"> </span>-q
+</code></pre></div>
+<hr />
+<h2 id="key-concepts">Key Concepts<a class="headerlink" href="#key-concepts" title="Permanent link">&para;</a></h2>
+<h3 id="game-tree-structure">Game Tree Structure<a class="headerlink" href="#game-tree-structure" title="Permanent link">&para;</a></h3>
+<p><strong>Alternating Layers:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>Depth 0: Pacman (MAX)
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>         |
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>Depth 1: Ghost1 (MIN)
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>         |
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>Depth 2: Ghost2 (MIN)
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>         |
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>Depth 3: Pacman (MAX)
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>         ...
+</code></pre></div></p>
+<p><strong>Ply vs Depth:</strong>
+- <strong>Ply:</strong> Single agent move
+- <strong>Depth:</strong> Complete round (all agents moved)
+- <strong>Depth d:</strong> d × numAgents plies</p>
+<h3 id="minimax-value">Minimax Value<a class="headerlink" href="#minimax-value" title="Permanent link">&para;</a></h3>
+<p><strong>Recursive Definition:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>MiniMax(s, 0) = Eval(s)  # depth 0
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>MiniMax(s, d, Pacman) = max_{a} MiniMax(successor(s,a), d, Ghost1)
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>MiniMax(s, d, Ghost_i) = min_{a} MiniMax(successor(s,a), d, Ghost_{i+1})
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>MiniMax(s, d, Ghost_last) = min_{a} MiniMax(successor(s,a), d-1, Pacman)
+</code></pre></div></p>
+<h3 id="alpha-beta-pruning_1">Alpha-Beta Pruning<a class="headerlink" href="#alpha-beta-pruning_1" title="Permanent link">&para;</a></h3>
+<p><strong>Alpha (α):</strong> Best value MAX can guarantee so far
+<strong>Beta (β):</strong> Best value MIN can guarantee so far</p>
+<p><strong>Pruning Conditions:</strong>
+- <strong>In MAX node:</strong> If value ≥ β, prune (MIN won't choose this path)
+- <strong>In MIN node:</strong> If value ≤ α, prune (MAX won't choose this path)</p>
+<p><strong>Update Rules:</strong>
+- <strong>MAX node:</strong> α = max(α, value)
+- <strong>MIN node:</strong> β = min(β, value)</p>
+<p><strong>Example:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>Root (MAX, α=-∞, β=+∞)
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>├─ Action1 → MIN (α=-∞, β=+∞)
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>│  ├─ Child1 → value = 5
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>│  │  Update β = min(+∞, 5) = 5
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>│  └─ Child2 → value = 3
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>│     Update β = min(5, 3) = 3
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>│     Return 3 to MAX
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>│  Update α = max(-∞, 3) = 3
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>│
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>├─ Action2 → MIN (α=3, β=+∞)
+<a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>│  ├─ Child1 → value = 2
+<a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>│     Since 2 ≤ α=3, PRUNE! Return 2
+<a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a>│  Update α = max(3, 2) = 3 (no change)
+<a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a>│
+<a id="__codelineno-23-15" name="__codelineno-23-15" href="#__codelineno-23-15"></a>└─ Action3 → MIN (α=3, β=+∞)
+<a id="__codelineno-23-16" name="__codelineno-23-16" href="#__codelineno-23-16"></a>   ... continue ...
+<a id="__codelineno-23-17" name="__codelineno-23-17" href="#__codelineno-23-17"></a>
+<a id="__codelineno-23-18" name="__codelineno-23-18" href="#__codelineno-23-18"></a>Best Action = Action1 (value=3)
+</code></pre></div></p>
+<hr />
+<h2 id="testing-and-validation">Testing and Validation<a class="headerlink" href="#testing-and-validation" title="Permanent link">&para;</a></h2>
+<h3 id="automated-testing">Automated Testing<a class="headerlink" href="#automated-testing" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># All questions</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>python<span class="w"> </span>autograder.py
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="c1"># Individual questions</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>python<span class="w"> </span>autograder.py<span class="w"> </span>-q<span class="w"> </span>q1<span class="w">  </span><span class="c1"># Reflex Agent</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>python<span class="w"> </span>autograder.py<span class="w"> </span>-q<span class="w"> </span>q2<span class="w">  </span><span class="c1"># Minimax</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>python<span class="w"> </span>autograder.py<span class="w"> </span>-q<span class="w"> </span>q3<span class="w">  </span><span class="c1"># Alpha-Beta</span>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>python<span class="w"> </span>autograder.py<span class="w"> </span>-q<span class="w"> </span>q4<span class="w">  </span><span class="c1"># Expectimax</span>
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>python<span class="w"> </span>autograder.py<span class="w"> </span>-q<span class="w"> </span>q5<span class="w">  </span><span class="c1"># Evaluation Function</span>
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>
+<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="c1"># Verbose debugging</span>
+<a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>python<span class="w"> </span>autograder.py<span class="w"> </span>-q<span class="w"> </span>q2<span class="w"> </span>--verbose
+</code></pre></div>
+<h3 id="manual-testing">Manual Testing<a class="headerlink" href="#manual-testing" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># Visual testing</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>MinimaxAgent<span class="w"> </span>-l<span class="w"> </span>testClassic<span class="w"> </span>-a<span class="w"> </span><span class="nv">depth</span><span class="o">=</span><span class="m">2</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="c1"># Performance comparison</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>MinimaxAgent<span class="w"> </span>-l<span class="w"> </span>smallClassic<span class="w"> </span>-a<span class="w"> </span><span class="nv">depth</span><span class="o">=</span><span class="m">3</span><span class="w"> </span>-n<span class="w"> </span><span class="m">10</span><span class="w"> </span>-q
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>AlphaBetaAgent<span class="w"> </span>-l<span class="w"> </span>smallClassic<span class="w"> </span>-a<span class="w"> </span><span class="nv">depth</span><span class="o">=</span><span class="m">3</span><span class="w"> </span>-n<span class="w"> </span><span class="m">10</span><span class="w"> </span>-q
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="c1"># Evaluation function impact</span>
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>AlphaBetaAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">depth</span><span class="o">=</span><span class="m">2</span><span class="w"> </span>-l<span class="w"> </span>mediumClassic<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span><span class="w"> </span>-q
+<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-p<span class="w"> </span>AlphaBetaAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">depth</span><span class="o">=</span><span class="m">2</span>,evalFn<span class="o">=</span>better<span class="w"> </span>-l<span class="w"> </span>mediumClassic<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span><span class="w"> </span>-q
+</code></pre></div>
+<hr />
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="agent-too-slow">Agent Too Slow<a class="headerlink" href="#agent-too-slow" title="Permanent link">&para;</a></h3>
+<p><strong>Problem:</strong> Takes too long per move</p>
+<p><strong>Solutions:</strong>
+- Reduce search depth (try depth=2)
+- Optimize evaluation function
+- Use Alpha-Beta instead of Minimax
+- Profile code for bottlenecks
+- Consider iterative deepening</p>
+<h3 id="agent-makes-poor-decisions">Agent Makes Poor Decisions<a class="headerlink" href="#agent-makes-poor-decisions" title="Permanent link">&para;</a></h3>
+<p><strong>Problem:</strong> Loses frequently or makes obvious mistakes</p>
+<p><strong>Solutions:</strong>
+- Improve evaluation function (add features)
+- Increase search depth (if time permits)
+- Tune feature weights
+- Check terminal state handling
+- Verify minimax logic is correct</p>
+<h3 id="alpha-beta-different-from-minimax">Alpha-Beta Different from Minimax<a class="headerlink" href="#alpha-beta-different-from-minimax" title="Permanent link">&para;</a></h3>
+<p><strong>Problem:</strong> Different actions selected</p>
+<p><strong>Solutions:</strong>
+- Check pruning conditions (α ≥ β)
+- Verify α/β updates in correct nodes
+- Ensure return value correct after pruning
+- Test on simple cases first
+- Compare intermediate values</p>
+<h3 id="expectimax-always-loses">Expectimax Always Loses<a class="headerlink" href="#expectimax-always-loses" title="Permanent link">&para;</a></h3>
+<p><strong>Problem:</strong> Poor win rate</p>
+<p><strong>Solutions:</strong>
+- Verify uniform probability distribution
+- Check expected value calculation (sum, not min)
+- Ensure correct agent turn handling
+- Improve evaluation function
+- Increase search depth</p>
+<hr />
+<h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
+<p>✅ <strong>Adversarial Search</strong>
+- Understand zero-sum games and minimax principle
+- Implement minimax algorithm with alternating agents
+- Handle multi-agent turns correctly
+- Extract optimal actions from game tree</p>
+<p>✅ <strong>Alpha-Beta Pruning</strong>
+- Understand pruning conditions and invariants
+- Implement efficient minimax optimization
+- Manage alpha and beta bounds correctly
+- Analyze pruning effectiveness</p>
+<p>✅ <strong>Expectimax Search</strong>
+- Model probabilistic opponent behavior
+- Compute expected values over chance nodes
+- Understand when minimax vs expectimax is appropriate
+- Handle uncertainty in opponent actions</p>
+<p>✅ <strong>Evaluation Functions</strong>
+- Design heuristics for non-terminal states
+- Balance multiple competing objectives
+- Normalize and weight features appropriately
+- Create fast and informative evaluations</p>
+<hr />
+<h2 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
+<h3 id="gamestate-methods">GameState Methods<a class="headerlink" href="#gamestate-methods" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="n">gameState</span><span class="o">.</span><span class="n">getLegalActions</span><span class="p">(</span><span class="n">agentIndex</span><span class="p">)</span>          <span class="c1"># Valid actions for agent</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="n">gameState</span><span class="o">.</span><span class="n">generateSuccessor</span><span class="p">(</span><span class="n">agentIndex</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span> <span class="c1"># Result of taking action</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="n">gameState</span><span class="o">.</span><span class="n">getNumAgents</span><span class="p">()</span>                       <span class="c1"># Total agents (Pacman + ghosts)</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="n">gameState</span><span class="o">.</span><span class="n">getPacmanPosition</span><span class="p">()</span>                  <span class="c1"># (x, y) position</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="n">gameState</span><span class="o">.</span><span class="n">getGhostPositions</span><span class="p">()</span>                  <span class="c1"># List of ghost positions</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="n">gameState</span><span class="o">.</span><span class="n">getFood</span><span class="p">()</span>                            <span class="c1"># Food grid</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="n">gameState</span><span class="o">.</span><span class="n">getCapsules</span><span class="p">()</span>                        <span class="c1"># Power pellet locations</span>
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a><span class="n">gameState</span><span class="o">.</span><span class="n">getScore</span><span class="p">()</span>                           <span class="c1"># Current game score</span>
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a><span class="n">gameState</span><span class="o">.</span><span class="n">isWin</span><span class="p">()</span>                              <span class="c1"># Victory check</span>
+<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a><span class="n">gameState</span><span class="o">.</span><span class="n">isLose</span><span class="p">()</span>                             <span class="c1"># Defeat check</span>
+</code></pre></div>
+<h3 id="utility-functions">Utility Functions<a class="headerlink" href="#utility-functions" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">util</span><span class="w"> </span><span class="kn">import</span> <span class="n">manhattanDistance</span>              <span class="c1"># L1 distance</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="c1"># Game directions</span>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">game</span><span class="w"> </span><span class="kn">import</span> <span class="n">Directions</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="n">Directions</span><span class="o">.</span><span class="n">NORTH</span><span class="p">,</span> <span class="n">SOUTH</span><span class="p">,</span> <span class="n">EAST</span><span class="p">,</span> <span class="n">WEST</span><span class="p">,</span> <span class="n">STOP</span>
+</code></pre></div>
+<hr />
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>UC Berkeley CS188</strong> - Original project framework</li>
+<li><strong>Russell &amp; Norvig</strong> - "Artificial Intelligence: A Modern Approach" (Chapters 5-6)</li>
+<li><strong>Game Theory Literature</strong> - Minimax theorem, zero-sum games</li>
+<li><strong>Course Materials</strong> - CS-5100 lecture slides on adversarial search</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024-2026
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/PraphulSamavedam" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

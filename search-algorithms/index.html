@@ -1,0 +1,2891 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Projects developed for Foundations of Artificial Intelligence (CS-5100)">
+      
+      
+        <meta name="author" content="Praphul Samavedam">
+      
+      
+        <link rel="canonical" href="https://PraphulSamavedam.github.io/CS-5100-Foundations-of-AI/search-algorithms/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../probabilistic-tracking/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Search Algorithms - Foundations of AI</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#search-algorithms" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Foundations of AI" class="md-header__button md-logo" aria-label="Foundations of AI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Foundations of AI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Search Algorithms
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-2.69L23.31 12 20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.82 0-3.53.5-5 1.35C8 5.08 10 8.3 10 12s-2 6.92-5 8.65C6.47 21.5 8.18 22 10 22a10 10 0 0 0 10-10A10 10 0 0 0 10 2"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/PraphulSamavedam/CS-5100-Foundations-of-AI" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CS-5100-Foundations-of-AI
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Search Algorithms
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../probabilistic-tracking/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Probabilistic Tracking
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../reinforcement-learning/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Reinforcement Learning
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../multi-agent-systems/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Multi-Agent Systems
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Foundations of AI" class="md-nav__button md-logo" aria-label="Foundations of AI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Foundations of AI
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/PraphulSamavedam/CS-5100-Foundations-of-AI" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CS-5100-Foundations-of-AI
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search Algorithms
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features-and-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features and Capabilities
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features and Capabilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#search-algorithms-implemented" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Search Algorithms Implemented
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Search Algorithms Implemented">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-depth-first-search-dfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Depth-First Search (DFS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-breadth-first-search-bfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Breadth-First Search (BFS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-uniform-cost-search-ucs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Uniform Cost Search (UCS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-a-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. A* Search
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem Types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#position-search-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Position Search Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corners-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Corners Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#food-search-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Food Search Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Start
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Algorithms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running Algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dfs-on-medium-maze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DFS on Medium Maze
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bfs-on-medium-maze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BFS on Medium Maze
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ucs-with-variable-costs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UCS with Variable Costs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-search-with-manhattan-heuristic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A* Search with Manhattan Heuristic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-line-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Line Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algorithm-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm Details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Algorithm Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#depth-first-search-dfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Depth-First Search (DFS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#breadth-first-search-bfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Breadth-First Search (BFS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uniform-cost-search-ucs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uniform Cost Search (UCS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A* Search
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#heuristic-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heuristic Design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Heuristic Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#manhattan-distance-heuristic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manhattan Distance Heuristic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corners-heuristic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Corners Heuristic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#food-heuristic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Food Heuristic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Analysis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#maze-size-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maze Size Comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-pathfinding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Pathfinding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complex-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complex Problems
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-algorithms-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Algorithms Explained
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Algorithms Explained">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#graph-search-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Graph Search Template
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-search-with-heuristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A* Search with Heuristics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#heuristic-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heuristic Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Heuristic Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#manhattan-distance-position-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manhattan Distance (Position Search)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#euclidean-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Euclidean Distance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corners-heuristic_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Corners Heuristic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#food-heuristic_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Food Heuristic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-and-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing and Validation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing and Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automated-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automated Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dfs-goes-in-circles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DFS Goes in Circles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bfs-runs-out-of-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BFS Runs Out of Memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-not-finding-optimal-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A* Not Finding Optimal Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#heuristic-returns-incorrect-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heuristic Returns Incorrect Values
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-optimization-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Optimization Tips
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning Objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Resources
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Additional Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#searchproblem-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SearchProblem Interface
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utility-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utility Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../probabilistic-tracking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probabilistic Tracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reinforcement-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reinforcement Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multi-agent-systems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Agent Systems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features-and-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features and Capabilities
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features and Capabilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#search-algorithms-implemented" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Search Algorithms Implemented
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Search Algorithms Implemented">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-depth-first-search-dfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Depth-First Search (DFS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-breadth-first-search-bfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Breadth-First Search (BFS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-uniform-cost-search-ucs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Uniform Cost Search (UCS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-a-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. A* Search
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem Types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#position-search-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Position Search Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corners-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Corners Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#food-search-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Food Search Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Start
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Algorithms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running Algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dfs-on-medium-maze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DFS on Medium Maze
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bfs-on-medium-maze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BFS on Medium Maze
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ucs-with-variable-costs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UCS with Variable Costs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-search-with-manhattan-heuristic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A* Search with Manhattan Heuristic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-line-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Line Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algorithm-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm Details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Algorithm Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#depth-first-search-dfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Depth-First Search (DFS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#breadth-first-search-bfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Breadth-First Search (BFS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uniform-cost-search-ucs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uniform Cost Search (UCS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A* Search
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#heuristic-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heuristic Design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Heuristic Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#manhattan-distance-heuristic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manhattan Distance Heuristic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corners-heuristic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Corners Heuristic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#food-heuristic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Food Heuristic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Analysis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#maze-size-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maze Size Comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-pathfinding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Pathfinding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complex-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complex Problems
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-algorithms-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Algorithms Explained
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Algorithms Explained">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#graph-search-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Graph Search Template
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-search-with-heuristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A* Search with Heuristics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#heuristic-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heuristic Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Heuristic Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#manhattan-distance-position-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manhattan Distance (Position Search)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#euclidean-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Euclidean Distance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corners-heuristic_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Corners Heuristic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#food-heuristic_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Food Heuristic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-and-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing and Validation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing and Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automated-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automated Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dfs-goes-in-circles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DFS Goes in Circles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bfs-runs-out-of-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BFS Runs Out of Memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-not-finding-optimal-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A* Not Finding Optimal Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#heuristic-returns-incorrect-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heuristic Returns Incorrect Values
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-optimization-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Optimization Tips
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning Objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Resources
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Additional Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#searchproblem-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SearchProblem Interface
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utility-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utility Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="search-algorithms">Search Algorithms<a class="headerlink" href="#search-algorithms" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The Search Algorithms project implements classic uninformed and informed search strategies for pathfinding in maze environments. Built using graph search principles, the system explores various frontier management strategies and heuristic functions to navigate Pacman through mazes efficiently while minimizing computational cost.</p>
+<p>The implementation covers <strong>four fundamental search algorithms</strong> (DFS, BFS, UCS, A*) and demonstrates their application to complex problems including corner navigation and food collection. The project emphasizes understanding trade-offs between optimality, completeness, and computational efficiency.</p>
+<hr />
+<h2 id="system-architecture">System Architecture<a class="headerlink" href="#system-architecture" title="Permanent link">&para;</a></h2>
+<p>The search system follows a modular architecture with flexible problem definitions and pluggable algorithms:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────────────────────┐
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│                      SEARCH ALGORITHMS SYSTEM                                │
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│                        System Workflow Diagram                               │
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>└─────────────────────────────────────────────────────────────────────────────┘
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                    ┌──────────────────────────────────┐
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                    │    SEARCH PROBLEM                │
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>                    │  - Initial State                 │
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>                    │  - Goal Test                     │
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>                    │  - Successor Function            │
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>                    │  - Cost Function                 │
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>                    └──────────────┬───────────────────┘
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>                                   │
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        ┌──────────────────────────┼────────────────────────────┐
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        │                          │                            │
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        ▼                          ▼                            ▼
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>┌────────────────┐      ┌────────────────┐        ┌────────────────┐
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>│ UNINFORMED     │      │ INFORMED       │        │ HEURISTIC      │
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>│ SEARCH         │      │ SEARCH         │        │ FUNCTIONS      │
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>│                │      │                │        │                │
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>│ - DFS          │      │ - A* Search    │        │ - Manhattan    │
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>│ - BFS          │      │                │        │   Distance     │
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>│ - UCS          │      │                │        │ - Euclidean    │
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>└────────┬───────┘      └────────┬───────┘        │ - Custom       │
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>         │                       │                 └────────┬───────┘
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>         └───────────────────────┼─────────────────────────┘
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>                                 │
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>                    ┌────────────▼────────────┐
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>                    │   FRONTIER / FRINGE     │
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>                    │  - Stack (DFS)          │
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>                    │  - Queue (BFS)          │
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>                    │  - Priority Queue (UCS) │
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>                    │  - Priority Queue (A*)  │
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>                    └────────────┬────────────┘
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>                                 │
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>                    ┌────────────▼────────────┐
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>                    │   EXPLORED SET          │
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>                    │  - Track visited states │
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>                    │  - Avoid cycles         │
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>                    │  - Graph search         │
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>                    └────────────┬────────────┘
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>                                 │
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>                    ┌────────────▼────────────┐
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>                    │   SOLUTION PATH         │
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>                    │  - Sequence of actions  │
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>                    │  - Path cost            │
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>                    │  - Nodes expanded       │
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>                    └─────────────────────────┘
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>
+<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>Key Algorithms:
+<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>├─ DFS: Stack-based, explores deep paths first
+<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>├─ BFS: Queue-based, explores level by level
+<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a>├─ UCS: Priority queue by path cost
+<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a>└─ A*: Priority queue by f(n) = g(n) + h(n)
+</code></pre></div>
+<hr />
+<h2 id="features-and-capabilities">Features and Capabilities<a class="headerlink" href="#features-and-capabilities" title="Permanent link">&para;</a></h2>
+<h3 id="search-algorithms-implemented">Search Algorithms Implemented<a class="headerlink" href="#search-algorithms-implemented" title="Permanent link">&para;</a></h3>
+<h4 id="1-depth-first-search-dfs">1. Depth-First Search (DFS)<a class="headerlink" href="#1-depth-first-search-dfs" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Strategy:</strong> Explore deepest nodes first using Stack (LIFO)</li>
+<li><strong>Complete:</strong> No (can get stuck in infinite branches)</li>
+<li><strong>Optimal:</strong> No (finds any solution, not necessarily shortest)</li>
+<li><strong>Complexity:</strong> Time O(b^m), Space O(bm)</li>
+<li><strong>Best For:</strong> Memory-constrained scenarios, deep solutions</li>
+</ul>
+<h4 id="2-breadth-first-search-bfs">2. Breadth-First Search (BFS)<a class="headerlink" href="#2-breadth-first-search-bfs" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Strategy:</strong> Explore shallowest nodes first using Queue (FIFO)</li>
+<li><strong>Complete:</strong> Yes (finds solution if one exists)</li>
+<li><strong>Optimal:</strong> Yes (if all step costs equal)</li>
+<li><strong>Complexity:</strong> Time O(b^d), Space O(b^d)</li>
+<li><strong>Best For:</strong> Finding shortest paths with uniform costs</li>
+</ul>
+<h4 id="3-uniform-cost-search-ucs">3. Uniform Cost Search (UCS)<a class="headerlink" href="#3-uniform-cost-search-ucs" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Strategy:</strong> Expand least-cost node using Priority Queue</li>
+<li><strong>Complete:</strong> Yes (with positive step costs)</li>
+<li><strong>Optimal:</strong> Yes (guaranteed least-cost path)</li>
+<li><strong>Complexity:</strong> Time/Space O(b^(C*/ε))</li>
+<li><strong>Best For:</strong> Variable action costs, optimal solutions required</li>
+</ul>
+<h4 id="4-a-search">4. A* Search<a class="headerlink" href="#4-a-search" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Strategy:</strong> Best-first search with f(n) = g(n) + h(n)</li>
+<li><strong>Complete:</strong> Yes (with admissible heuristic)</li>
+<li><strong>Optimal:</strong> Yes (with admissible heuristic)</li>
+<li><strong>Complexity:</strong> Depends on heuristic quality</li>
+<li><strong>Best For:</strong> When good heuristic available, optimal solution needed</li>
+</ul>
+<h3 id="problem-types">Problem Types<a class="headerlink" href="#problem-types" title="Permanent link">&para;</a></h3>
+<h4 id="position-search-problem">Position Search Problem<a class="headerlink" href="#position-search-problem" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Goal:</strong> Navigate to specific target location</li>
+<li><strong>State:</strong> (x, y) coordinates in maze</li>
+<li><strong>Actions:</strong> North, South, East, West</li>
+<li><strong>Application:</strong> Basic pathfinding</li>
+</ul>
+<h4 id="corners-problem">Corners Problem<a class="headerlink" href="#corners-problem" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Goal:</strong> Visit all four maze corners</li>
+<li><strong>State:</strong> (position, visited_corners_set)</li>
+<li><strong>Actions:</strong> North, South, East, West</li>
+<li><strong>Application:</strong> Multiple goal navigation</li>
+</ul>
+<h4 id="food-search-problem">Food Search Problem<a class="headerlink" href="#food-search-problem" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Goal:</strong> Collect all food pellets efficiently</li>
+<li><strong>State:</strong> (position, remaining_food_grid)</li>
+<li><strong>Actions:</strong> North, South, East, West</li>
+<li><strong>Application:</strong> Resource collection optimization</li>
+</ul>
+<hr />
+<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h3>
+<p>Ensure Python 3.6+ is installed:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>--version
+</code></pre></div></p>
+<p>All required files are included in the project. No external dependencies needed.</p>
+<h3 id="running-algorithms">Running Algorithms<a class="headerlink" href="#running-algorithms" title="Permanent link">&para;</a></h3>
+<p>Navigate to the project directory:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>0_search
+</code></pre></div></p>
+<h4 id="dfs-on-medium-maze">DFS on Medium Maze<a class="headerlink" href="#dfs-on-medium-maze" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>mediumMaze<span class="w"> </span>-p<span class="w"> </span>SearchAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">fn</span><span class="o">=</span>depthFirstSearch
+</code></pre></div>
+<h4 id="bfs-on-medium-maze">BFS on Medium Maze<a class="headerlink" href="#bfs-on-medium-maze" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>mediumMaze<span class="w"> </span>-p<span class="w"> </span>SearchAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">fn</span><span class="o">=</span>breadthFirstSearch
+</code></pre></div>
+<h4 id="ucs-with-variable-costs">UCS with Variable Costs<a class="headerlink" href="#ucs-with-variable-costs" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>mediumMaze<span class="w"> </span>-p<span class="w"> </span>SearchAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">fn</span><span class="o">=</span>uniformCostSearch
+</code></pre></div>
+<h4 id="a-search-with-manhattan-heuristic">A* Search with Manhattan Heuristic<a class="headerlink" href="#a-search-with-manhattan-heuristic" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>bigMaze<span class="w"> </span>-z<span class="w"> </span>.5<span class="w"> </span>-p<span class="w"> </span>SearchAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">fn</span><span class="o">=</span>astar,heuristic<span class="o">=</span>manhattanHeuristic
+</code></pre></div>
+<h3 id="command-line-options">Command Line Options<a class="headerlink" href="#command-line-options" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-l</code></td>
+<td>Maze layout</td>
+<td><code>tinyMaze</code>, <code>mediumMaze</code>, <code>bigMaze</code></td>
+</tr>
+<tr>
+<td><code>-p</code></td>
+<td>Agent type</td>
+<td><code>SearchAgent</code></td>
+</tr>
+<tr>
+<td><code>-a</code></td>
+<td>Agent arguments</td>
+<td><code>fn=astar,heuristic=manhattanHeuristic</code></td>
+</tr>
+<tr>
+<td><code>-z</code></td>
+<td>Zoom level</td>
+<td><code>0.5</code> (half size), <code>1.0</code> (normal)</td>
+</tr>
+<tr>
+<td><code>--frameTime</code></td>
+<td>Animation speed</td>
+<td><code>0</code> (max speed), <code>0.1</code> (slow)</td>
+</tr>
+<tr>
+<td><code>-q</code></td>
+<td>Quiet mode</td>
+<td>No graphics</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="algorithm-details">Algorithm Details<a class="headerlink" href="#algorithm-details" title="Permanent link">&para;</a></h2>
+<h3 id="depth-first-search-dfs">Depth-First Search (DFS)<a class="headerlink" href="#depth-first-search-dfs" title="Permanent link">&para;</a></h3>
+<p><strong>Pseudocode:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>function DFS(problem):
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    frontier = Stack()
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    frontier.push(problem.startState)
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    explored = empty set
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    while frontier not empty:
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>        state = frontier.pop()
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>        if problem.isGoal(state):
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>            return solution
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>        if state not in explored:
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>            explored.add(state)
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>            for successor in problem.getSuccessors(state):
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>                frontier.push(successor)
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>    return failure
+</code></pre></div></p>
+<p><strong>Characteristics:</strong>
+- Explores one branch completely before backtracking
+- Memory efficient (only stores path)
+- Can find suboptimal solutions
+- Fast for deep goals</p>
+<h3 id="breadth-first-search-bfs">Breadth-First Search (BFS)<a class="headerlink" href="#breadth-first-search-bfs" title="Permanent link">&para;</a></h3>
+<p><strong>Pseudocode:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>function BFS(problem):
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    frontier = Queue()
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    frontier.push(problem.startState)
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    explored = empty set
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    while frontier not empty:
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>        state = frontier.pop()
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>        if problem.isGoal(state):
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>            return solution
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>        if state not in explored:
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>            explored.add(state)
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>            for successor in problem.getSuccessors(state):
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>                frontier.push(successor)
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>    return failure
+</code></pre></div></p>
+<p><strong>Characteristics:</strong>
+- Explores all nodes at depth d before depth d+1
+- Guarantees shortest path (uniform costs)
+- Memory intensive (stores all nodes at current level)
+- Optimal for unit step costs</p>
+<h3 id="uniform-cost-search-ucs">Uniform Cost Search (UCS)<a class="headerlink" href="#uniform-cost-search-ucs" title="Permanent link">&para;</a></h3>
+<p><strong>Pseudocode:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>function UCS(problem):
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    frontier = PriorityQueue()
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    frontier.push(problem.startState, priority=0)
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    explored = empty set
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    while frontier not empty:
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        state = frontier.pop()  # Lowest cost first
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>        if problem.isGoal(state):
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>            return solution
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>        if state not in explored:
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>            explored.add(state)
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>            for successor, cost in problem.getSuccessors(state):
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>                frontier.push(successor, priority=pathCost + cost)
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>    return failure
+</code></pre></div></p>
+<p><strong>Characteristics:</strong>
+- Always expands least-cost node
+- Guarantees optimal solution
+- Handles variable step costs
+- More nodes expanded than A*</p>
+<h3 id="a-search">A* Search<a class="headerlink" href="#a-search" title="Permanent link">&para;</a></h3>
+<p><strong>Pseudocode:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>function AStar(problem, heuristic):
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    frontier = PriorityQueue()
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    frontier.push(problem.startState, priority=heuristic(startState))
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    explored = empty set
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    while frontier not empty:
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>        state = frontier.pop()  # Lowest f(n) first
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>        if problem.isGoal(state):
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>            return solution
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>        if state not in explored:
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>            explored.add(state)
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>            for successor, cost in problem.getSuccessors(state):
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>                g = pathCost + cost
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>                h = heuristic(successor)
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>                f = g + h
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>                frontier.push(successor, priority=f)
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>    return failure
+</code></pre></div></p>
+<p><strong>Evaluation Function:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>f(n) = g(n) + h(n)
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>where:
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>  g(n) = actual cost from start to n
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>  h(n) = estimated cost from n to goal
+</code></pre></div></p>
+<p><strong>Characteristics:</strong>
+- Uses heuristic to guide search
+- Optimal with admissible heuristic (h ≤ h*)
+- Expands fewer nodes than uninformed search
+- Efficiency depends on heuristic quality</p>
+<hr />
+<h2 id="heuristic-design">Heuristic Design<a class="headerlink" href="#heuristic-design" title="Permanent link">&para;</a></h2>
+<h3 id="manhattan-distance-heuristic">Manhattan Distance Heuristic<a class="headerlink" href="#manhattan-distance-heuristic" title="Permanent link">&para;</a></h3>
+<p><strong>Formula:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>h(position, goal) = |x₁ - x₂| + |y₁ - y₂|
+</code></pre></div></p>
+<p><strong>Properties:</strong>
+- <strong>Admissible:</strong> Never overestimates (can't move diagonally through walls)
+- <strong>Consistent:</strong> h(n) ≤ c(n,a,n') + h(n')
+- <strong>Efficient:</strong> O(1) computation
+- <strong>Use Case:</strong> Grid-based pathfinding</p>
+<h3 id="corners-heuristic">Corners Heuristic<a class="headerlink" href="#corners-heuristic" title="Permanent link">&para;</a></h3>
+<p><strong>Strategy:</strong> Estimate cost to visit all unvisited corners</p>
+<p><strong>Approach:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">cornersHeuristic</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">problem</span><span class="p">):</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    <span class="n">position</span><span class="p">,</span> <span class="n">visitedCorners</span> <span class="o">=</span> <span class="n">state</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    <span class="n">unvisited</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">corners</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visitedCorners</span><span class="p">]</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">unvisited</span><span class="p">:</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>        <span class="k">return</span> <span class="mi">0</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>    <span class="c1"># Distance to farthest unvisited corner</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>    <span class="n">distances</span> <span class="o">=</span> <span class="p">[</span><span class="n">manhattanDistance</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">unvisited</span><span class="p">]</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Properties:</strong>
+- Admissible (underestimates true cost)
+- Guides search toward unvisited corners
+- Simple but effective</p>
+<h3 id="food-heuristic">Food Heuristic<a class="headerlink" href="#food-heuristic" title="Permanent link">&para;</a></h3>
+<p><strong>Strategy:</strong> Estimate cost to collect all remaining food</p>
+<p><strong>Approach:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">foodHeuristic</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">problem</span><span class="p">):</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    <span class="n">position</span><span class="p">,</span> <span class="n">foodGrid</span> <span class="o">=</span> <span class="n">state</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="n">foodList</span> <span class="o">=</span> <span class="n">foodGrid</span><span class="o">.</span><span class="n">asList</span><span class="p">()</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">foodList</span><span class="p">:</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>        <span class="k">return</span> <span class="mi">0</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>    <span class="c1"># Maximum distance to any food</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>    <span class="n">maxDist</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="n">manhattanDistance</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">food</span><span class="p">)</span> <span class="k">for</span> <span class="n">food</span> <span class="ow">in</span> <span class="n">foodList</span><span class="p">])</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>    <span class="c1"># Add penalty for food count</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>    <span class="k">return</span> <span class="n">maxDist</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">foodList</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+</code></pre></div></p>
+<p><strong>Properties:</strong>
+- Balances distance and quantity
+- Admissible approximation
+- Scalable to many food pellets</p>
+<hr />
+<h2 id="performance-analysis">Performance Analysis<a class="headerlink" href="#performance-analysis" title="Permanent link">&para;</a></h2>
+<h3 id="maze-size-comparison">Maze Size Comparison<a class="headerlink" href="#maze-size-comparison" title="Permanent link">&para;</a></h3>
+<p><strong>Small Maze (tinyMaze):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Path Cost</th>
+<th>Nodes Expanded</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DFS</td>
+<td>10</td>
+<td>15</td>
+<td>0.01s</td>
+</tr>
+<tr>
+<td>BFS</td>
+<td>10</td>
+<td>15</td>
+<td>0.01s</td>
+</tr>
+<tr>
+<td>UCS</td>
+<td>10</td>
+<td>15</td>
+<td>0.01s</td>
+</tr>
+<tr>
+<td>A*</td>
+<td>10</td>
+<td>14</td>
+<td>0.01s</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Medium Maze:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Path Cost</th>
+<th>Nodes Expanded</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DFS</td>
+<td>130</td>
+<td>146</td>
+<td>0.02s</td>
+</tr>
+<tr>
+<td>BFS</td>
+<td>68</td>
+<td>269</td>
+<td>0.03s</td>
+</tr>
+<tr>
+<td>UCS</td>
+<td>68</td>
+<td>269</td>
+<td>0.03s</td>
+</tr>
+<tr>
+<td>A*</td>
+<td>68</td>
+<td>221</td>
+<td>0.02s</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Big Maze:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Path Cost</th>
+<th>Nodes Expanded</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DFS</td>
+<td>210</td>
+<td>390</td>
+<td>0.05s</td>
+</tr>
+<tr>
+<td>BFS</td>
+<td>210</td>
+<td>620</td>
+<td>0.10s</td>
+</tr>
+<tr>
+<td>UCS</td>
+<td>210</td>
+<td>620</td>
+<td>0.10s</td>
+</tr>
+<tr>
+<td>A*</td>
+<td>210</td>
+<td>549</td>
+<td>0.08s</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key Observations:</strong>
+- <strong>DFS:</strong> Fast but finds suboptimal paths
+- <strong>BFS/UCS:</strong> Optimal but expand many nodes
+- <strong>A*:</strong> Best of both worlds - optimal with fewer expansions
+- <strong>Heuristic Impact:</strong> A* efficiency directly correlates with heuristic quality</p>
+<hr />
+<h2 id="usage-examples">Usage Examples<a class="headerlink" href="#usage-examples" title="Permanent link">&para;</a></h2>
+<h3 id="basic-pathfinding">Basic Pathfinding<a class="headerlink" href="#basic-pathfinding" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Depth-First Search</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>mediumMaze<span class="w"> </span>-p<span class="w"> </span>SearchAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">fn</span><span class="o">=</span>dfs
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># Breadth-First Search (optimal for unit costs)</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>mediumMaze<span class="w"> </span>-p<span class="w"> </span>SearchAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">fn</span><span class="o">=</span>bfs
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="c1"># Uniform Cost Search (optimal for variable costs)</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>mediumDottedMaze<span class="w"> </span>-p<span class="w"> </span>SearchAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">fn</span><span class="o">=</span>ucs
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="c1"># A* Search with Manhattan heuristic</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>bigMaze<span class="w"> </span>-z<span class="w"> </span>.5<span class="w"> </span>-p<span class="w"> </span>SearchAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">fn</span><span class="o">=</span>astar,heuristic<span class="o">=</span>manhattanHeuristic
+</code></pre></div>
+<h3 id="complex-problems">Complex Problems<a class="headerlink" href="#complex-problems" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Corners Problem with BFS</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>mediumCorners<span class="w"> </span>-p<span class="w"> </span>SearchAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">fn</span><span class="o">=</span>bfs,prob<span class="o">=</span>CornersProblem
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1"># Corners Problem with A* and custom heuristic</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>mediumCorners<span class="w"> </span>-p<span class="w"> </span>SearchAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">fn</span><span class="o">=</span>astar,prob<span class="o">=</span>CornersProblem,heuristic<span class="o">=</span>cornersHeuristic
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="c1"># Food Search Problem</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>trickySearch<span class="w"> </span>-p<span class="w"> </span>SearchAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">fn</span><span class="o">=</span>astar,prob<span class="o">=</span>FoodSearchProblem,heuristic<span class="o">=</span>foodHeuristic
+</code></pre></div>
+<h3 id="performance-testing">Performance Testing<a class="headerlink" href="#performance-testing" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Maximum speed (no graphics)</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>bigMaze<span class="w"> </span>-p<span class="w"> </span>SearchAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">fn</span><span class="o">=</span>astar,heuristic<span class="o">=</span>manhattanHeuristic<span class="w"> </span>--frameTime<span class="o">=</span><span class="m">0</span><span class="w"> </span>-q
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="c1"># Slow motion visualization</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>mediumMaze<span class="w"> </span>-p<span class="w"> </span>SearchAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">fn</span><span class="o">=</span>bfs<span class="w"> </span>--frameTime<span class="o">=</span><span class="m">0</span>.5
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="c1"># Multiple runs for statistics</span>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>mediumMaze<span class="w"> </span>-p<span class="w"> </span>SearchAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">fn</span><span class="o">=</span>astar<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span><span class="w"> </span>-q
+</code></pre></div>
+<hr />
+<h2 id="key-algorithms-explained">Key Algorithms Explained<a class="headerlink" href="#key-algorithms-explained" title="Permanent link">&para;</a></h2>
+<h3 id="graph-search-template">Graph Search Template<a class="headerlink" href="#graph-search-template" title="Permanent link">&para;</a></h3>
+<p>All algorithms follow this general structure:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">graphSearch</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">frontierDataStructure</span><span class="p">):</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="sd">    Generic graph search algorithm</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>    <span class="n">frontier</span> <span class="o">=</span> <span class="n">frontierDataStructure</span><span class="p">()</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>    <span class="n">frontier</span><span class="o">.</span><span class="n">push</span><span class="p">((</span><span class="n">problem</span><span class="o">.</span><span class="n">getStartState</span><span class="p">(),</span> <span class="p">[],</span> <span class="mi">0</span><span class="p">))</span>  <span class="c1"># (state, actions, cost)</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>    <span class="n">explored</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>    <span class="k">while</span> <span class="ow">not</span> <span class="n">frontier</span><span class="o">.</span><span class="n">isEmpty</span><span class="p">():</span>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>        <span class="n">state</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">cost</span> <span class="o">=</span> <span class="n">frontier</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>        <span class="c1"># Goal test</span>
+<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>        <span class="k">if</span> <span class="n">problem</span><span class="o">.</span><span class="n">isGoalState</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a>            <span class="k">return</span> <span class="n">actions</span>
+<a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>
+<a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a>        <span class="c1"># Avoid revisiting</span>
+<a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a>        <span class="k">if</span> <span class="n">state</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">explored</span><span class="p">:</span>
+<a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a>            <span class="n">explored</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a>
+<a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a>            <span class="c1"># Expand successors</span>
+<a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a>            <span class="k">for</span> <span class="n">successor</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">stepCost</span> <span class="ow">in</span> <span class="n">problem</span><span class="o">.</span><span class="n">getSuccessors</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+<a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a>                <span class="k">if</span> <span class="n">successor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">explored</span><span class="p">:</span>
+<a id="__codelineno-18-23" name="__codelineno-18-23" href="#__codelineno-18-23"></a>                    <span class="n">newActions</span> <span class="o">=</span> <span class="n">actions</span> <span class="o">+</span> <span class="p">[</span><span class="n">action</span><span class="p">]</span>
+<a id="__codelineno-18-24" name="__codelineno-18-24" href="#__codelineno-18-24"></a>                    <span class="n">newCost</span> <span class="o">=</span> <span class="n">cost</span> <span class="o">+</span> <span class="n">stepCost</span>
+<a id="__codelineno-18-25" name="__codelineno-18-25" href="#__codelineno-18-25"></a>                    <span class="n">frontier</span><span class="o">.</span><span class="n">push</span><span class="p">((</span><span class="n">successor</span><span class="p">,</span> <span class="n">newActions</span><span class="p">,</span> <span class="n">newCost</span><span class="p">))</span>
+<a id="__codelineno-18-26" name="__codelineno-18-26" href="#__codelineno-18-26"></a>
+<a id="__codelineno-18-27" name="__codelineno-18-27" href="#__codelineno-18-27"></a>    <span class="k">return</span> <span class="p">[]</span>  <span class="c1"># No solution found</span>
+</code></pre></div>
+<h3 id="a-search-with-heuristics">A* Search with Heuristics<a class="headerlink" href="#a-search-with-heuristics" title="Permanent link">&para;</a></h3>
+<p><strong>Core Equation:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>f(n) = g(n) + h(n)
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>where:
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>  f(n) = estimated total cost of path through n
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>  g(n) = actual cost from start to n
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>  h(n) = estimated cost from n to goal (heuristic)
+</code></pre></div></p>
+<p><strong>Admissibility Requirement:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>h(n) ≤ h*(n)  (never overestimate)
+</code></pre></div></p>
+<p><strong>Consistency Requirement:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>h(n) ≤ c(n, a, n&#39;) + h(n&#39;)  (triangle inequality)
+</code></pre></div></p>
+<p><strong>Implementation:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">aStarSearch</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">heuristic</span><span class="p">):</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>    <span class="n">frontier</span> <span class="o">=</span> <span class="n">PriorityQueue</span><span class="p">()</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>    <span class="n">explored</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>    <span class="n">startState</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">getStartState</span><span class="p">()</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>    <span class="n">startPriority</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">+</span> <span class="n">heuristic</span><span class="p">(</span><span class="n">startState</span><span class="p">,</span> <span class="n">problem</span><span class="p">)</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>    <span class="n">frontier</span><span class="o">.</span><span class="n">push</span><span class="p">((</span><span class="n">startState</span><span class="p">,</span> <span class="p">[],</span> <span class="mi">0</span><span class="p">),</span> <span class="n">startPriority</span><span class="p">)</span>
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>    <span class="k">while</span> <span class="ow">not</span> <span class="n">frontier</span><span class="o">.</span><span class="n">isEmpty</span><span class="p">():</span>
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>        <span class="n">state</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">cost</span> <span class="o">=</span> <span class="n">frontier</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>
+<a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>        <span class="k">if</span> <span class="n">problem</span><span class="o">.</span><span class="n">isGoalState</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+<a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>            <span class="k">return</span> <span class="n">actions</span>
+<a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a>
+<a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a>        <span class="k">if</span> <span class="n">state</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">explored</span><span class="p">:</span>
+<a id="__codelineno-22-16" name="__codelineno-22-16" href="#__codelineno-22-16"></a>            <span class="n">explored</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<a id="__codelineno-22-17" name="__codelineno-22-17" href="#__codelineno-22-17"></a>
+<a id="__codelineno-22-18" name="__codelineno-22-18" href="#__codelineno-22-18"></a>            <span class="k">for</span> <span class="n">successor</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">stepCost</span> <span class="ow">in</span> <span class="n">problem</span><span class="o">.</span><span class="n">getSuccessors</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+<a id="__codelineno-22-19" name="__codelineno-22-19" href="#__codelineno-22-19"></a>                <span class="k">if</span> <span class="n">successor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">explored</span><span class="p">:</span>
+<a id="__codelineno-22-20" name="__codelineno-22-20" href="#__codelineno-22-20"></a>                    <span class="n">newActions</span> <span class="o">=</span> <span class="n">actions</span> <span class="o">+</span> <span class="p">[</span><span class="n">action</span><span class="p">]</span>
+<a id="__codelineno-22-21" name="__codelineno-22-21" href="#__codelineno-22-21"></a>                    <span class="n">g</span> <span class="o">=</span> <span class="n">cost</span> <span class="o">+</span> <span class="n">stepCost</span>
+<a id="__codelineno-22-22" name="__codelineno-22-22" href="#__codelineno-22-22"></a>                    <span class="n">h</span> <span class="o">=</span> <span class="n">heuristic</span><span class="p">(</span><span class="n">successor</span><span class="p">,</span> <span class="n">problem</span><span class="p">)</span>
+<a id="__codelineno-22-23" name="__codelineno-22-23" href="#__codelineno-22-23"></a>                    <span class="n">f</span> <span class="o">=</span> <span class="n">g</span> <span class="o">+</span> <span class="n">h</span>
+<a id="__codelineno-22-24" name="__codelineno-22-24" href="#__codelineno-22-24"></a>                    <span class="n">frontier</span><span class="o">.</span><span class="n">push</span><span class="p">((</span><span class="n">successor</span><span class="p">,</span> <span class="n">newActions</span><span class="p">,</span> <span class="n">g</span><span class="p">),</span> <span class="n">f</span><span class="p">)</span>
+<a id="__codelineno-22-25" name="__codelineno-22-25" href="#__codelineno-22-25"></a>
+<a id="__codelineno-22-26" name="__codelineno-22-26" href="#__codelineno-22-26"></a>    <span class="k">return</span> <span class="p">[]</span>
+</code></pre></div></p>
+<hr />
+<h2 id="heuristic-examples">Heuristic Examples<a class="headerlink" href="#heuristic-examples" title="Permanent link">&para;</a></h2>
+<h3 id="manhattan-distance-position-search">Manhattan Distance (Position Search)<a class="headerlink" href="#manhattan-distance-position-search" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">manhattanHeuristic</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">problem</span><span class="p">):</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="sd">    Manhattan distance to goal</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="sd">    Admissible for grid navigation without diagonal moves</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>    <span class="n">xy1</span> <span class="o">=</span> <span class="n">position</span>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>    <span class="n">xy2</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">goal</span>
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>    <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">xy1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">xy2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="n">xy1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">xy2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div>
+<h3 id="euclidean-distance">Euclidean Distance<a class="headerlink" href="#euclidean-distance" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">euclideanHeuristic</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">problem</span><span class="p">):</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="sd">    Straight-line distance to goal</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="sd">    Admissible but less informative than Manhattan for grids</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>    <span class="n">xy1</span> <span class="o">=</span> <span class="n">position</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>    <span class="n">xy2</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">goal</span>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>    <span class="k">return</span> <span class="p">((</span><span class="n">xy1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">xy2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">xy1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">xy2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span>
+</code></pre></div>
+<h3 id="corners-heuristic_1">Corners Heuristic<a class="headerlink" href="#corners-heuristic_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">cornersHeuristic</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">problem</span><span class="p">):</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="sd">    Heuristic for visiting all corners</span>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="sd">    Uses maximum distance to any unvisited corner</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>    <span class="n">position</span><span class="p">,</span> <span class="n">visitedCorners</span> <span class="o">=</span> <span class="n">state</span>
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>    <span class="n">corners</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">corners</span>
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>    <span class="n">unvisited</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">corners</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visitedCorners</span><span class="p">]</span>
+<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>
+<a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">unvisited</span><span class="p">:</span>
+<a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a>        <span class="k">return</span> <span class="mi">0</span>
+<a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a>
+<a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a>    <span class="c1"># Max distance provides admissible lower bound</span>
+<a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a>    <span class="n">distances</span> <span class="o">=</span> <span class="p">[</span><span class="n">manhattanDistance</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">corner</span><span class="p">)</span> <span class="k">for</span> <span class="n">corner</span> <span class="ow">in</span> <span class="n">unvisited</span><span class="p">]</span>
+<a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a>    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="food-heuristic_1">Food Heuristic<a class="headerlink" href="#food-heuristic_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">foodHeuristic</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">problem</span><span class="p">):</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="sd">    Heuristic for collecting all food</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="sd">    Combines distance and quantity factors</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>    <span class="n">position</span><span class="p">,</span> <span class="n">foodGrid</span> <span class="o">=</span> <span class="n">state</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>    <span class="n">foodList</span> <span class="o">=</span> <span class="n">foodGrid</span><span class="o">.</span><span class="n">asList</span><span class="p">()</span>
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">foodList</span><span class="p">:</span>
+<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>        <span class="k">return</span> <span class="mi">0</span>
+<a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>
+<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a>    <span class="c1"># Distance to farthest food</span>
+<a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a>    <span class="n">maxDist</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="n">manhattanDistance</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">food</span><span class="p">)</span> <span class="k">for</span> <span class="n">food</span> <span class="ow">in</span> <span class="n">foodList</span><span class="p">])</span>
+<a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a>
+<a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a>    <span class="c1"># Penalty for remaining food count</span>
+<a id="__codelineno-26-16" name="__codelineno-26-16" href="#__codelineno-26-16"></a>    <span class="n">foodPenalty</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">foodList</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+<a id="__codelineno-26-17" name="__codelineno-26-17" href="#__codelineno-26-17"></a>
+<a id="__codelineno-26-18" name="__codelineno-26-18" href="#__codelineno-26-18"></a>    <span class="k">return</span> <span class="n">maxDist</span> <span class="o">+</span> <span class="n">foodPenalty</span>
+</code></pre></div>
+<hr />
+<h2 id="testing-and-validation">Testing and Validation<a class="headerlink" href="#testing-and-validation" title="Permanent link">&para;</a></h2>
+<h3 id="automated-testing">Automated Testing<a class="headerlink" href="#automated-testing" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1"># Test all questions</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>python<span class="w"> </span>autograder.py
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="c1"># Test specific questions</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>python<span class="w"> </span>autograder.py<span class="w"> </span>-q<span class="w"> </span>q1<span class="w">  </span><span class="c1"># DFS</span>
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>python<span class="w"> </span>autograder.py<span class="w"> </span>-q<span class="w"> </span>q2<span class="w">  </span><span class="c1"># BFS</span>
+<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>python<span class="w"> </span>autograder.py<span class="w"> </span>-q<span class="w"> </span>q3<span class="w">  </span><span class="c1"># UCS</span>
+<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>python<span class="w"> </span>autograder.py<span class="w"> </span>-q<span class="w"> </span>q4<span class="w">  </span><span class="c1"># A*</span>
+<a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>python<span class="w"> </span>autograder.py<span class="w"> </span>-q<span class="w"> </span>q5<span class="w">  </span><span class="c1"># Corners Problem</span>
+<a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>python<span class="w"> </span>autograder.py<span class="w"> </span>-q<span class="w"> </span>q6<span class="w">  </span><span class="c1"># Corners Heuristic</span>
+<a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a>python<span class="w"> </span>autograder.py<span class="w"> </span>-q<span class="w"> </span>q7<span class="w">  </span><span class="c1"># Food Heuristic</span>
+<a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a>python<span class="w"> </span>autograder.py<span class="w"> </span>-q<span class="w"> </span>q8<span class="w">  </span><span class="c1"># Suboptimal Search</span>
+</code></pre></div>
+<h3 id="manual-testing">Manual Testing<a class="headerlink" href="#manual-testing" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1"># Visual testing on different maze sizes</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>tinyMaze<span class="w"> </span>-p<span class="w"> </span>SearchAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">fn</span><span class="o">=</span>bfs
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>mediumMaze<span class="w"> </span>-p<span class="w"> </span>SearchAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">fn</span><span class="o">=</span>astar
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>bigMaze<span class="w"> </span>-z<span class="w"> </span>.5<span class="w"> </span>-p<span class="w"> </span>SearchAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">fn</span><span class="o">=</span>astar
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="c1"># Performance comparison</span>
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="k">for</span><span class="w"> </span>algo<span class="w"> </span><span class="k">in</span><span class="w"> </span>dfs<span class="w"> </span>bfs<span class="w"> </span>ucs<span class="w"> </span>astar<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Testing </span><span class="nv">$algo</span><span class="s2">&quot;</span>
+<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a><span class="w">    </span>python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>mediumMaze<span class="w"> </span>-p<span class="w"> </span>SearchAgent<span class="w"> </span>-a<span class="w"> </span><span class="nv">fn</span><span class="o">=</span><span class="nv">$algo</span><span class="w"> </span>-q
+<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a><span class="k">done</span>
+</code></pre></div>
+<hr />
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
+<h4 id="dfs-goes-in-circles">DFS Goes in Circles<a class="headerlink" href="#dfs-goes-in-circles" title="Permanent link">&para;</a></h4>
+<p><strong>Problem:</strong> Infinite loop or very long paths</p>
+<p><strong>Solution:</strong> Ensure explored set prevents revisiting:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="k">if</span> <span class="n">state</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">explored</span><span class="p">:</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>    <span class="n">explored</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>    <span class="c1"># expand successors</span>
+</code></pre></div></p>
+<h4 id="bfs-runs-out-of-memory">BFS Runs Out of Memory<a class="headerlink" href="#bfs-runs-out-of-memory" title="Permanent link">&para;</a></h4>
+<p><strong>Problem:</strong> Too many nodes stored</p>
+<p><strong>Solutions:</strong>
+1. Verify explored set works correctly
+2. Try smaller maze first
+3. Check state representation is hashable</p>
+<h4 id="a-not-finding-optimal-path">A* Not Finding Optimal Path<a class="headerlink" href="#a-not-finding-optimal-path" title="Permanent link">&para;</a></h4>
+<p><strong>Problem:</strong> Returns suboptimal solution</p>
+<p><strong>Solutions:</strong>
+1. Verify heuristic is admissible (never overestimates)
+2. Check f(n) = g(n) + h(n) calculation
+3. Ensure priority queue uses f(n) as priority</p>
+<h4 id="heuristic-returns-incorrect-values">Heuristic Returns Incorrect Values<a class="headerlink" href="#heuristic-returns-incorrect-values" title="Permanent link">&para;</a></h4>
+<p><strong>Problem:</strong> Crashes or poor performance</p>
+<p><strong>Solutions:</strong>
+1. Never return infinity or negative values
+2. Verify admissibility (h ≤ true cost)
+3. Test heuristic in isolation before integration</p>
+<hr />
+<h2 id="performance-optimization-tips">Performance Optimization Tips<a class="headerlink" href="#performance-optimization-tips" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Choose Right Algorithm:</strong></li>
+<li>Need optimal? Use A* or UCS</li>
+<li>Limited memory? Use DFS</li>
+<li>
+<p>Uniform costs? Use BFS</p>
+</li>
+<li>
+<p><strong>Design Better Heuristics:</strong></p>
+</li>
+<li>More informed = fewer expansions</li>
+<li>Must remain admissible for optimality</li>
+<li>
+<p>Precompute when possible</p>
+</li>
+<li>
+<p><strong>State Representation:</strong></p>
+</li>
+<li>Make states hashable for explored set</li>
+<li>Minimize state size for memory efficiency</li>
+<li>
+<p>Include only relevant information</p>
+</li>
+<li>
+<p><strong>Implementation:</strong></p>
+</li>
+<li>Check explored before expanding</li>
+<li>Store path incrementally, not by copying</li>
+<li>Use appropriate data structures (Stack/Queue/PriorityQueue)</li>
+</ol>
+<hr />
+<h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
+<p>✅ <strong>Algorithm Implementation</strong>
+- Implement DFS, BFS, UCS, and A* from scratch
+- Understand frontier and explored set management
+- Handle state representation and goal testing</p>
+<p>✅ <strong>Heuristic Design</strong>
+- Design admissible heuristics for various problems
+- Balance informativeness with computational cost
+- Verify consistency and admissibility properties</p>
+<p>✅ <strong>Complexity Analysis</strong>
+- Analyze time and space complexity
+- Compare algorithm performance empirically
+- Understand optimality and completeness guarantees</p>
+<p>✅ <strong>Problem Formulation</strong>
+- Define state spaces for search problems
+- Design successor functions and cost models
+- Formulate complex multi-goal problems</p>
+<hr />
+<h2 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
+<h3 id="searchproblem-interface">SearchProblem Interface<a class="headerlink" href="#searchproblem-interface" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="n">problem</span><span class="o">.</span><span class="n">getStartState</span><span class="p">()</span>           <span class="c1"># Returns initial state</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="n">problem</span><span class="o">.</span><span class="n">isGoalState</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>        <span class="c1"># Returns True if state is goal</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="n">problem</span><span class="o">.</span><span class="n">getSuccessors</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>      <span class="c1"># Returns [(successor, action, cost), ...]</span>
+</code></pre></div>
+<h3 id="utility-functions">Utility Functions<a class="headerlink" href="#utility-functions" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="n">util</span><span class="o">.</span><span class="n">manhattanDistance</span><span class="p">(</span><span class="n">xy1</span><span class="p">,</span> <span class="n">xy2</span><span class="p">)</span>  <span class="c1"># L1 distance</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="n">util</span><span class="o">.</span><span class="n">Stack</span><span class="p">()</span>                      <span class="c1"># LIFO data structure</span>
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="n">util</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>                      <span class="c1"># FIFO data structure</span>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="n">util</span><span class="o">.</span><span class="n">PriorityQueue</span><span class="p">()</span>              <span class="c1"># Ordered by priority</span>
+</code></pre></div>
+<hr />
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>UC Berkeley CS188</strong> - Original project framework</li>
+<li><strong>Russell &amp; Norvig</strong> - "Artificial Intelligence: A Modern Approach"</li>
+<li><strong>Course Materials</strong> - CS-5100 lecture slides and readings</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024-2026
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/PraphulSamavedam" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
